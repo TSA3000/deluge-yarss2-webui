@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE torrent PUBLIC "-//bitTorrent//DTD torrent 0.1//EN" "http://xmlns.ezrss.it/0.1/dtd/">
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<channel>
+		<title>The RSS</title>
+		<link>https://therss.so</link>
+		<description>The top100 torrents </description>
+		<language>en</language>
+		<pubDate>Tue, 13 Aug 2019 18:15:02 +0200</pubDate>
+		<lastBuildDate>Tue, 13 Aug 2019 18:15:02 +0200</lastBuildDate>
+		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
+		<generator>RSS Generator 1.2</generator>
+		<item>
+			<title><![CDATA[The.Show.WEB.H264-MEMENTO[ettv]]]></title>
+			<link>magnet:?xt=urn:btih:CD44C326C5C4AC6EA08EAA5CDF61E53B1414BD05&amp;dn=The.Show.WEB.H264-MEMENTO%5Bettv%5D</link>
+			<comments>https://therss.so/torrent/32395588</comments>
+			<pubDate>Mon, 06 May 2019 03:27:54 +0200</pubDate>
+			<category domain="https://therss.so/browse/205"><![CDATA[Video / TV shows]]></category>
+			<dc:creator><![CDATA[ettv]]></dc:creator>
+			<guid>https://therss.so/torrent/32490588/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<contentLength>573162367</contentLength>
+				<infoHash>CD44C326C5C4AC6EA08EAA5CDF61E53B1414BD05</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:CD44C326C5C4AC6EA08EAA5CDF61E53B1414BD05&amp;dn=The.Show.WEB.H264-MEMENTO%5Bettv%5D]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[The.Other.Show.HDTV.x264-SVA[ettv]]]></title>
+			<link>magnet:?xt=urn:btih:D62CA80E996599057B28DB63511F02610DEB6A8E&amp;dn=The.Other.Show.HDTV.x264-SVA%5Bettv%5D</link>
+			<comments>https://therss.so/torrent/34301327</comments>
+			<pubDate>Wed, 07 Aug 2019 04:05:22 +0200</pubDate>
+			<category domain="https://therss.so/browse/205"><![CDATA[Video / TV shows]]></category>
+			<dc:creator><![CDATA[ettv]]></dc:creator>
+			<guid>https://therss.so/torrent/34301327/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<contentLength>336607878</contentLength>
+				<infoHash>D62CA80E996599057B28DB63511F02610DEB6A8E</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:D62CA80E996599057B28DB63511F02610DEB6A8E&amp;dn=The.Other.Show.HDTV.x264-SVA%5Bettv%5D]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Froul 4x9 [HDTV - LOL]]]></title>
+			<link>http://torrents.thepiratebay.org/6932181/Froul_S04E09_HDTV_XviD-LOL.6972184.TPB.torrent</link>
+			<category domain="http://eztv.it/shows/101/fringe/"><![CDATA[TV Show / Froul]]></category>
+			<pubDate>Fri, 20 Jan 2012 23:13:47 -0500</pubDate>
+			<description><![CDATA[Show Name: Froul; Episode Title: N/A; Season: 4; Episode: 9]]></description>
+			<enclosure url="http://torrents.thepiratebay.org/6932181/Froul_S04E09_HDTV_XviD-LOL.6972184.TPB.torrent" length="366834262" type="application/x-bittorrent" />
+			<comments>http://eztv.it/forum/discuss/32601/</comments>
+			<guid>http://eztv.it/ep/32601/fringe-s04e09-hdtv-xvid-lol/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<fileName><![CDATA[Froul.S04E09.HDTV.XviD-LOL.[eztv].torrent]]></fileName>
+				<contentLength>366834262</contentLength>
+				<infoHash>1E5D20F1525E9E48B70D29186F94ED18493043EA</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:DZOSB0KSL2PERNYNFEMG7FHNDBETAQ7K&dn=Froul.S04E09.HDTV.XviD-LOL]]></magnetURI>
+			</torrent>
+		</item>
+	</channel>
+</rss>

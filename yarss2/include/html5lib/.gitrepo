@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/html5lib/html5lib-python.git
+	branch = master
+	commit = 4b2275497b624c6e97150fa2eb16a7db7ed42111
+	parent = 3bafd53d08c44f45fa83b3d0fa830f5a572c0885
+	method = merge
+	cmdver = 0.3.1

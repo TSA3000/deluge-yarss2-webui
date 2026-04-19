@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+<channel>
+    <title>Foo</title>
+    <link>http://foo.bar</link>
+    <description>Foo bar.</description>
+    <item>
+        <title>Baz item</title>
+        <enclosure url="https://foo.com/test.mp3" />
+    </item>
+    <item>
+        <title>Foo item</title>
+        <enclosure url="https://foo.com/test.mp3" length="" />
+    </item>
+    <item>
+        <title>Foo item</title>
+        <enclosure url="https://foo.com/test.mp3" length="None" />
+    </item>
+</channel>
+</rss>

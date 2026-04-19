@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:torrent="http://xmlns.ezrss.it/0.1/">
+<channel>
+    <title>TV Torrents RSS feed - EZTV</title>
+    <link>https://eztv.io/</link>
+    <description>TV Torrents RSS feed - EZTV</description>
+    <lastBuildDate>Fri, 27 Sep 2019 10:01:01 -0400</lastBuildDate>
+    <item>
+        <title>Lolly Tang 2009 09 26 WEB x264-TBS</title>
+        <category>TV</category>
+        <link>https://eztv.io/ep/1369854/lolly-tang-2009-09-26-web-x264-tbs/</link>
+        <guid>https://eztv.io/ep/1369854/lolly-tang-2009-09-26-web-x264-tbs/</guid>
+        <pubDate>Fri, 27 Sep 2019 08:12:48 -0400</pubDate>
+        <torrent:contentLength>288475596</torrent:contentLength>
+        <torrent:infoHash>4CF874831F61F5DB9C3299E503E28A8103047BA0</torrent:infoHash>
+        <torrent:magnetURI><![CDATA[magnet:?xt=urn:btih:4CF874831F61F5DB9C3299E503E28A8103047BA0&dn=Lolly.Tang.2009.09.26.WEB.x264-TBS%5Beztv%5D.mkv&tr=udp%3A%2F%2Ftracker.publicbt.com%2Fannounce&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=http%3A%2F%2Ftracker.trackerfix.com%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969]]></torrent:magnetURI>
+        <torrent:seeds>0</torrent:seeds>
+        <torrent:peers>0</torrent:peers>
+        <torrent:verified>0</torrent:verified>
+        <torrent:fileName>Lolly.Tang.2009.09.26.WEB.x264-TBS[eztv].mkv</torrent:fileName>
+        <enclosure url="https://zoink.ch/torrent/Lolly.Tang.2009.09.26.WEB.x264-TBS[eztv].mkv.torrent" length="288475596" type="application/x-bittorrent" />
+    </item>
+    </channel>
+</rss>

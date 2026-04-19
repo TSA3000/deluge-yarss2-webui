@@ -1,0 +1,13 @@
+
+Match icon:
+Filename: match.png
+Artist: Saki
+URL: http://www.iconarchive.com/show/nuoveXT-icons-by-saki/Actions-ok-icon.html
+License: GPL
+
+No-match icon:
+Filename: no_match.png
+Artist: Oxygen Team
+URL: http://www.iconarchive.com/show/oxygen-icons-by-oxygen-icons.org/Actions-dialog-close-icon.html
+License: LGPL
+

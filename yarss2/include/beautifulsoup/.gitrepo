@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/bendikro/beautifulsoup.git
+	branch = v4.8.0_python3
+	commit = db72c127c2825986c1fd4821fdfcf5cc354e489d
+	parent = 11ad8b6e09019ae07650898ffdb2d9cf5121c801
+	method = merge
+	cmdver = 0.3.1

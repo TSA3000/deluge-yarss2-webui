@@ -1,0 +1,91 @@
+<!--
+    This is the bitTorrent 0.1 DTD; a simple XML format for describing
+    collections of one or more torrents.
+
+    Namespace = http://xmlns.ezrss.it/0.1/
+
+    This DTD is identified by the PUBLIC and SYSTEM identifiers:
+
+      PUBLIC "-//bitTorrent//DTD Torrent 0.1//EN"
+      SYSTEM "http://xmlns.ezrss.it/0.1/dtd/"
+
+    Clients are expected to handle extensions to this specification.
+    If you're not parsing it with a reasonable XML parser and coping
+    with elements and attributes your client doesn't know about, well,
+    your client is broken.
+-->
+
+<!-- a Uniform Resource Identifier as per [RFC2396] -->
+<!ENTITY % URI "CDATA">
+
+<!-- an integer, in this case a positive one -->
+<!ENTITY % Integer "CDATA">
+
+<!-- date and time in standard Unix timestamp format -->
+<!ENTITY % Unixtime "CDATA">
+
+<!--
+	Core class object for the torrent namespace
+	We allow the following tags:
+	- fileName
+	- contentLength
+	- infoHash
+	- magnetURI
+	- trackers
+-->
+<!ELEMENT torrent (fileName,contentLength,infoHash,magnetURI,trackers)>
+<!ATTLIST torrent
+  xmlns		%URI;			#FIXED		'http://xmlns.ezrss.it/0.1/'
+>
+
+<!--
+	The name of the torrent file.
+-->
+<!ELEMENT fileName (#PCDATA)>
+<!ATTLIST fileName>
+
+<!--
+	The content length of the data stored inside the torrent
+-->
+<!ELEMENT contentLength (#PCDATA)>
+<!ATTLIST contentLength>
+
+<!--
+	The HEX/SHA1 hash of the torrents metadata
+-->
+<!ELEMENT infoHash (#PCDATA)>
+<!ATTLIST infoHash>
+
+<!--
+	Magnet URI compliant string.
+	Example: magnet:?xt=btih:(HEX)&dn=(NAME)
+-->
+<!ELEMENT magnetURI (#PCDATA)>
+<!ATTLIST magnetURI>
+
+<!--
+	exactly one trackers element per torrents, with exactly one or more
+	set of groups with one or more trackers associated with it.
+-->
+<!ELEMENT trackers (group)*>
+<!ATTLIST group>
+
+<!--
+	The collection of groups which specify the order the trackers
+	should be handled.
+-->
+<!ELEMENT group (tracker)*>
+<!ATTLIST group
+  order		CDATA			#REQUIRED
+>
+
+<!--
+	The collection of trackers this torrent is known to be in.
+	also with statistical information about the torrent within
+	the tracker.
+-->
+<!ELEMENT tracker (#PCDATA)>
+<!ATTLIST tracker
+  seeds		%Integer;		#IMPLIED
+  peers		%Integer;		#IMPLIED
+>

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/dateutil/dateutil.git
+	branch = master
+	commit = 6c7719b13664ff97480a5eef2a6509a632f3c27b
+	parent = a822b116646336cf5f005fadc01e1ed4fd2472b2
+	method = merge
+	cmdver = 0.3.1

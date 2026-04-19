@@ -1,0 +1,18 @@
+<rss version="2.0">
+  <channel>
+    <title>Site tile</title>
+    <link>Site url</link>
+    <description>Description of RSS Feed</description>
+    <language>en-us</language>
+    <ttl>120</ttl>
+    <item>
+    <title>Some title</title>
+    <link>http://hostname.com/Fetch?hash=2f21d4e59&amp;digest=865178f9bc</link>
+    <guid isPermaLink="true">http://hostname.com/Fetch?hash=2f21d4e59&amp;digest=865178f9bc</guid>
+    <comments>Some comment</comments>
+    <pubDate>Thu, 15 May 2012 00:16:18 +0000</pubDate>
+    <description>Detailed description</description>
+    <enclosure url="http://hostname.com/Fetch?hash=2f21d4e59&amp;id=865178f9bc" length="3423659" type="application/x-bittorrent"/>
+  </item>
+  </channel>
+</rss>

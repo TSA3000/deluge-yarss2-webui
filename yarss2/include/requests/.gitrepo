@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/psf/requests.git
+	branch = master
+	commit = fab1fd10d0b115e635b9ef1364f8444089725000
+	parent = 85a3edb87e004ad5a71bce0ed5456a947134fc74
+	method = merge
+	cmdver = 0.3.1

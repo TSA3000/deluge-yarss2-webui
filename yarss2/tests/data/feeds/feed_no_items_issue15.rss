@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Example.com</title>
+    <link>http://www.example.com/rss/download_queue</link>
+    <description>Torrents for download queue</description>
+    <language>en-us</language>
+    <ttl>15</ttl>
+    <item></item>
+  </channel>
+</rss>

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/tiran/defusedxml.git
+	branch = master
+	commit = f8e3fe87aee928224378acee5761df3ca6d95dd2
+	parent = ea80a3623b5660aadad6d08c2860da6bdae355e8
+	method = merge
+	cmdver = 0.3.1

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="0.92">
+  <channel>
+	<title>YaRSS2 Test feed</title>
+	<link>https://site.net</link>
+	<description>This is a test feed for YaRSS2!</description>
+	<language>en-usde</language>
+	<copyright>Copyright © 2012 YaRSS2</copyright>
+	<webMaster>yarss2@example.net</webMaster>
+	<image><title>Title</title>
+	<url>https://site.net</url>
+	<link>https://site.net</link>
+	<width>16</width>
+	<height>16</height>
+	</image>
+	<item><title>This is the title</title>
+	<link>https://site.net/file.torrent</link>
+	<pubDate>2012-10-21 20:42:39</pubDate>
+	<description>
+	  Category: 
+	  Size: 4.23 GB
+	  Status: 
+	  Added: 2012-10-21 20:42:39
+	  Description:
+	</description>
+	</item>
+
+	<item><title>This is the title</title>
+	<link>https://site.net/file.torrent</link>
+	<pubDate>Sun, 21 Oct 2012 21:47:35 -0000</pubDate>
+	<description>
+	  Category: 
+	  Size: 383.71 MB
+	</description>
+	</item>
+
+	<item>
+	  <title><![CDATA[[TORRENT] This is the title]]></title>
+	  <description>&lt;br /&gt;&lt;b&gt;QUOTE:&lt;/b&gt;&lt;br /&gt;&lt;table width=&quot;100%&quot; border=&quot;1&quot; cellspacing=&quot;0&quot; cellpadding=&quot;10&quot; class=&quot;lista&quot;&gt;&lt;tr&gt;&lt;td &gt;SIZE...........: 817 MiB&lt;br /&gt;
+	  </description>
+	  <link>https://site.net</link>
+	  <guid>https://site.net</guid>
+	  <enclosure url="https://site.net/file.torrent" length="857007476" type="application/x-bittorrent" />
+	  <pubDate>Mon, 22 Oct 2012 00:24:53 +0300</pubDate>
+	</item>
+
+	<item>
+	  <title><![CDATA[[TORRENT] This is the title]]></title>
+	  <description>&lt;font size=4&gt;11&lt;/font&gt;&lt;br /&gt;
+	  &lt;br /&gt;
+	  &lt;font size=2&gt;&lt;b&gt;General&lt;/b&gt;&lt;br /&gt;
+	  Container: Matroska &lt;br /&gt;
+	  Size: 12.6GB [12/12] &lt;br /&gt;
+	  Size: 723MB [06/06]&lt;br /&gt;
+	  Duration: 00:24 (h:m) | 12 Episodes&lt;br /&gt;
+	  Duration: 00:03 (h:m) | 6 OVA Episodes&lt;br /&gt;
+	  Source:
+	  </description>
+	  <link>https://site.net</link>
+	  <guid>https://site.net</guid>
+	  <enclosure url="https://site.net/file.torrent" length="14353107637" type="application/x-bittorrent" />
+	  <pubDate>Sun, 21 Oct 2012 23:56:18 +0300</pubDate>
+	</item>
+  </channel>
+</rss>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:tv="http://showrss.info" version="2.0">
+  <channel>
+	<title>showRSS personal feed</title>
+	<link>http://showrss.info</link>
+	<ttl>30</ttl>
+	<description>showRSS personal feed</description>
+	<item>
+	  <title>The Show WEB H264 MEMENTO</title>
+	  <link>magnet:?xt=urn:btih:AB3C1AD2258201BFD289D886F1062761D8427A40&amp;dn=The+Show+WEB+H264+MEMENTO&amp;tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969%2Fannounce&amp;tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969%2Fannounce&amp;tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&amp;tr=http%3A%2F%2Ftracker.trackerfix.com%3A80%2Fannounce</link>
+	  <guid isPermaLink="false">4e30c9aa8545c5b2910702abbbfa4c7d49bbd5af</guid>
+	  <pubDate>Mon, 14 Oct 2019 03:10:26 +0000</pubDate>
+	  <description>New episode: The Show WEB H264 MEMENTO</description>
+	  <tv:show_id>364</tv:show_id>
+	  <tv:external_id>575</tv:external_id>
+	  <tv:show_name>The Show</tv:show_name>
+	  <tv:episode_id>107852</tv:episode_id>
+	  <tv:raw_title>The Show WEB H264 MEMENTO</tv:raw_title>
+	  <tv:info_hash>AB3C1AD2258201BFD289D886F1062761D8427A40</tv:info_hash>
+	  <enclosure url="magnet:?xt=urn:btih:AB3C1AD2258201BFD289D886F1062761D8427A40&amp;dn=The+Show+WEB+H264+MEMENTO&amp;tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969%2Fannounce&amp;tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969%2Fannounce&amp;tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&amp;tr=http%3A%2F%2Ftracker.trackerfix.com%3A80%2Fannounce" length="0" type="application/x-bittorrent"/>
+	</item>
+  </channel>
+</rss>

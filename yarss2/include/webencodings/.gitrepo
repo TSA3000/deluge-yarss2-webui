@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/gsnedders/python-webencodings.git
+	branch = master
+	commit = 513de30767127a7b34a7b3218358206b41c6135f
+	parent = 817777d0fc79699b6129a43ab60c74f37a8b1cb6
+	method = merge
+	cmdver = 0.3.1

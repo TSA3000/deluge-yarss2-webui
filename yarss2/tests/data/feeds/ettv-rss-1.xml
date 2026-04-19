@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE torrent PUBLIC "-//bitTorrent//DTD torrent 0.1//EN" "http://xmlns.ezrss.it/0.1/dtd/">
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<channel>
+		<title>The RSS</title>
+		<link>https://therss.so</link>
+		<description>The top100 torrents </description>
+		<language>en</language>
+		<pubDate>Tue, 13 Aug 2019 18:15:02 +0200</pubDate>
+		<lastBuildDate>Tue, 13 Aug 2019 18:15:02 +0200</lastBuildDate>
+		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
+		<generator>RSS Generator 1.2</generator>
+		<item>
+			<title><![CDATA[The.Show.WEB.H264-MEMENTO[ettv]]]></title>
+			<link>magnet:?xt=urn:btih:CD44C326C5C4AC6EA08EAA5CDF61E53B1414BD05&amp;dn=The.Show.WEB.H264-MEMENTO%5Bettv%5D</link>
+			<comments>https://therss.so/torrent/32395588</comments>
+			<pubDate>Mon, 06 May 2019 03:27:54 +0200</pubDate>
+			<category domain="https://therss.so/browse/205"><![CDATA[Video / TV shows]]></category>
+			<dc:creator><![CDATA[ettv]]></dc:creator>
+			<guid>https://therss.so/torrent/32490588/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<contentLength>573162367</contentLength>
+				<infoHash>CD44C326C5C4AC6EA08EAA5CDF61E53B1414BD05</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:CD44C326C5C4AC6EA08EAA5CDF61E53B1414BD05&amp;dn=The.Show.WEB.H264-MEMENTO%5Bettv%5D]]></magnetURI>
+			</torrent>
+		</item>
+	</channel>
+</rss>

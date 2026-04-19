@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE torrent PUBLIC "-//bitTorrent//DTD torrent 0.1//EN" "http://special.dates.com/0.1/dtd/">
+
+<rss version="2.0" xmlns:enc="http://crocodile.org/ns/rss/2.0/enclosures">
+<channel>
+	<title>PublicHD Beta - Download High Definition Torrents</title>
+	<link>http://publichd.se</link>
+	<description>Latest Hi-Definition torrents from PublicHD</description>
+	<lastBuildDate>Thu, 10 Apr 2014 04:26:15 CST</lastBuildDate>
+	<generator>PublicHD RSS Feeder v.01</generator>
+	<ttl>30</ttl>
+	<docs>http://www.rssboard.org/rss-specification</docs>
+
+  <item>
+  	<title>[TORRENT] Chicago.Fire.S02E18.720p.WEB-DL.DD5.1.H.264-KiNGS [PublicHD]</title>
+  	<description><![CDATA[SEEDS 1 :: LEECHES 8 .::. Health Level: Low]]></description>
+  	<link>http://publichd.se/index.php?page=torrent-details&amp;id=d8004c7344c8952177845891be9f9d3a2b92fd7d</link>
+  	<pubDate>10/04/2014 03:44:14</pubDate>
+  	<category domain="http://publichd.se/index.php?page=torrents&amp;category=14">TV WEB-DL</category>
+  	<enclosure url="http://publichd.se/download.php?id=d8004c7344c8952177845891be9f9d3a2b92fd7d&amp;f=Chicago.Fire.S02E18.720p.WEB-DL.DD5.1.H.264-KiNGS-[PublicHD]" length="1459638498" type="application/x-bittorrent" />
+	<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+		<contentLength>1459638498</contentLength>
+		<infoHash>d8004c7344c8952177845891be9f9d3a2b92fd7d</infoHash>
+		<magnetURI><![CDATA[magnet:?xt=urn:btih:3AAEY42EZCKSC54ELCI35H45HIVZF7L5&dn=Chicago.Fire.S02E18.720p.WEB-DL.DD5.1.H.264-KiNGS+[PublicHD]&tr=udp://tracker.publichd.eu/announce&tr=udp://tracker.1337x.org:80/announce&tr=udp://tracker.openbittorrent.com:80/announce&tr=http://fr33dom.h33t.com:3310/announce]]></magnetURI>
+		<seeds>1</seeds>
+		<leechs>8</leechs>
+	</torrent>
+  </item>
+
+</channel>
+</rss>

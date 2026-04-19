@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/bendikro/atoma.git
+	branch = master
+	commit = 9107cb75458627ead7667bd5e89cc3024b62eb6d
+	parent = 60aa3edc8956a757283c57e6644b400e9833b543
+	method = merge
+	cmdver = 0.3.1

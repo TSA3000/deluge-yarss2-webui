@@ -1,0 +1,608 @@
+<?xml-stylesheet type="text/xsl" href="http://torrents.FreeBSD.org:8080/rss.xsl" ?>
+<rss version="2.0" xmlns:torrentItem="http://xbnbt.sourceforge.net/ns/torrentItem#">
+  <channel>
+	<title>FreeBSD BitTorrent Tracker</title>
+	<link>http://torrents.FreeBSD.org:8080/</link>
+	<description>Tracks FreeBSD.org release ISO images</description>
+	<category domain="http://torrents.FreeBSD.org:8080/index.html">All Torrents</category>
+	<copyright>FreeBSD Project</copyright>
+	<managingEditor>devnull@freebsd.org</managingEditor>
+	<webMaster>webmaster@freebsd.org</webMaster>
+	<pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	<lastBuildDate>Fri, 30 Mar 2012 15:13:54 +0000</lastBuildDate>
+	<language>en</language>
+	<generator>XBNBT 85b.1.1 SVN 335 Flat-File Release</generator>
+	<docs>http://blogs.law.harvard.edu/tech/rss</docs>
+	<ttl>60</ttl>
+	<image>
+	  <url>http://torrents.freebsd.org:8080/files/images/xbnbt.png</url>
+	  <title>FreeBSD BitTorrent Tracker</title>
+	  <description>Tracks FreeBSD.org release ISO images</description>
+	  <link>http://torrents.FreeBSD.org:8080/</link>
+	  <width>32</width>
+	  <height>32</height>
+	</image>
+	<rating>Not Rated</rating>
+	<textInput>
+	  <title>Search</title>
+	  <description>Torrent Search</description>
+	  <name>search</name>
+	  <link>http://torrents.FreeBSD.org:8080/index.html</link>
+	</textInput>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-amd64-all</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=6d53e2f47a8462899639a697942384f4b133deaa</link>
+	  <description><![CDATA[
+	  Info Hash: 6d53e2f47a8462899639a697942384f4b133deaa<br>
+	  Size: 3.59 GB<br>
+	  Files: 4<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/6d53e2f47a8462899639a697942384f4b133deaa.torrent" length="74111" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">6d53e2f47a8462899639a697942384f4b133deaa</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">3.59 GB</torrentItem:size>
+	  <torrentItem:files title="Files">4</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">289</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">36</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">4959</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-i386-all</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=dbabaf65f09ade1e3da7010794f9a32c58fab77d</link>
+	  <description><![CDATA[
+	  Info Hash: dbabaf65f09ade1e3da7010794f9a32c58fab77d<br>
+	  Size: 3.22 GB<br>
+	  Files: 4<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/dbabaf65f09ade1e3da7010794f9a32c58fab77d.torrent" length="66566" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">dbabaf65f09ade1e3da7010794f9a32c58fab77d</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">3.22 GB</torrentItem:size>
+	  <torrentItem:files title="Files">4</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">350</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">48</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">5426</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-ia64-all</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=1bd89122ec8f15750fcddc1251f5f9e2286bd57b</link>
+	  <description><![CDATA[
+	  Info Hash: 1bd89122ec8f15750fcddc1251f5f9e2286bd57b<br>
+	  Size: 1.67 GB<br>
+	  Files: 3<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/1bd89122ec8f15750fcddc1251f5f9e2286bd57b.torrent" length="69101" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">1bd89122ec8f15750fcddc1251f5f9e2286bd57b</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">1.67 GB</torrentItem:size>
+	  <torrentItem:files title="Files">3</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">25</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">286</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-powerpc-all</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=b8ddbffe6143fdffe2b3b52f664dbfae7983b0ce</link>
+	  <description><![CDATA[
+	  Info Hash: b8ddbffe6143fdffe2b3b52f664dbfae7983b0ce<br>
+	  Size: 1.10 GB<br>
+	  Files: 3<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/b8ddbffe6143fdffe2b3b52f664dbfae7983b0ce.torrent" length="45573" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">b8ddbffe6143fdffe2b3b52f664dbfae7983b0ce</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">1.10 GB</torrentItem:size>
+	  <torrentItem:files title="Files">3</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">23</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">146</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-powerpc64-all</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=411955fffad1da3e3908eb7af8ef85cd1e811aed</link>
+	  <description><![CDATA[
+	  Info Hash: 411955fffad1da3e3908eb7af8ef85cd1e811aed<br>
+	  Size: 1.27 GB<br>
+	  Files: 3<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/411955fffad1da3e3908eb7af8ef85cd1e811aed.torrent" length="52501" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">411955fffad1da3e3908eb7af8ef85cd1e811aed</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">1.27 GB</torrentItem:size>
+	  <torrentItem:files title="Files">3</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">20</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">75</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-sparc64-all</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=244eccb32d7f070669bb0cce7b2ee1ef5161fee2</link>
+	  <description><![CDATA[
+	  Info Hash: 244eccb32d7f070669bb0cce7b2ee1ef5161fee2<br>
+	  Size: 606.21 MB<br>
+	  Files: 2<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/244eccb32d7f070669bb0cce7b2ee1ef5161fee2.torrent" length="24579" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">244eccb32d7f070669bb0cce7b2ee1ef5161fee2</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">606.21 MB</torrentItem:size>
+	  <torrentItem:files title="Files">2</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">24</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">108</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-amd64-bootonly</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=5e189eee4e3b1d8b93716e60e2f2ccd3adeedb51</link>
+	  <description><![CDATA[
+	  Info Hash: 5e189eee4e3b1d8b93716e60e2f2ccd3adeedb51<br>
+	  Size: 138.87 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/5e189eee4e3b1d8b93716e60e2f2ccd3adeedb51.torrent" length="11371" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">5e189eee4e3b1d8b93716e60e2f2ccd3adeedb51</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">138.87 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">66</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">513</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-amd64-disc1</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=ac1303da08131c9c2fd24ad5b85a64e5fac7dfbf</link>
+	  <description><![CDATA[
+	  Info Hash: ac1303da08131c9c2fd24ad5b85a64e5fac7dfbf<br>
+	  Size: 612.05 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/ac1303da08131c9c2fd24ad5b85a64e5fac7dfbf.torrent" length="24745" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">ac1303da08131c9c2fd24ad5b85a64e5fac7dfbf</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">612.05 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">101</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">1</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">1483</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-amd64-dvd1</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=3cf37eca0c8047647da7558008dc1a7de81dab81</link>
+	  <description><![CDATA[
+	  Info Hash: 3cf37eca0c8047647da7558008dc1a7de81dab81<br>
+	  Size: 2.22 GB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/3cf37eca0c8047647da7558008dc1a7de81dab81.torrent" length="45805" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">3cf37eca0c8047647da7558008dc1a7de81dab81</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">2.22 GB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">114</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">2</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">2305</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-amd64-memstick</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=4b0a1b6096ac723a7463c64a47b3847a632560a5</link>
+	  <description><![CDATA[
+	  Info Hash: 4b0a1b6096ac723a7463c64a47b3847a632560a5<br>
+	  Size: 653.93 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/4b0a1b6096ac723a7463c64a47b3847a632560a5.torrent" length="26411" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">4b0a1b6096ac723a7463c64a47b3847a632560a5</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">653.93 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">81</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">1107</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-i386-bootonly</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=aa3ab91a189d5957434436ede5ee147bcfad4c41</link>
+	  <description><![CDATA[
+	  Info Hash: aa3ab91a189d5957434436ede5ee147bcfad4c41<br>
+	  Size: 128.49 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/aa3ab91a189d5957434436ede5ee147bcfad4c41.torrent" length="10529" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">aa3ab91a189d5957434436ede5ee147bcfad4c41</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">128.49 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">59</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">564</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-i386-disc1</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=6da37fb3e01706bc4c017af4f9ee7e03c2a8b6ae</link>
+	  <description><![CDATA[
+	  Info Hash: 6da37fb3e01706bc4c017af4f9ee7e03c2a8b6ae<br>
+	  Size: 501.83 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/6da37fb3e01706bc4c017af4f9ee7e03c2a8b6ae.torrent" length="40403" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">6da37fb3e01706bc4c017af4f9ee7e03c2a8b6ae</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">501.83 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">117</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">2170</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-i386-dvd1</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=49c9199ad0d0aa8f999e3c355bd5db0b8f17f9d8</link>
+	  <description><![CDATA[
+	  Info Hash: 49c9199ad0d0aa8f999e3c355bd5db0b8f17f9d8<br>
+	  Size: 2.08 GB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/49c9199ad0d0aa8f999e3c355bd5db0b8f17f9d8.torrent" length="43063" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">49c9199ad0d0aa8f999e3c355bd5db0b8f17f9d8</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">2.08 GB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">132</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">3</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">2405</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-i386-memstick</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=70bfe75a7aac2051f593ae70d325fad36d6affcb</link>
+	  <description><![CDATA[
+	  Info Hash: 70bfe75a7aac2051f593ae70d325fad36d6affcb<br>
+	  Size: 534.91 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/70bfe75a7aac2051f593ae70d325fad36d6affcb.torrent" length="21649" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">70bfe75a7aac2051f593ae70d325fad36d6affcb</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">534.91 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">72</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">1</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">918</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-ia64-bootonly</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=acc97ea3d33d374af9ac062d09acb16f78d7a17b</link>
+	  <description><![CDATA[
+	  Info Hash: acc97ea3d33d374af9ac062d09acb16f78d7a17b<br>
+	  Size: 305.95 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/acc97ea3d33d374af9ac062d09acb16f78d7a17b.torrent" length="24729" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">acc97ea3d33d374af9ac062d09acb16f78d7a17b</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">305.95 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">12</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">45</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-ia64-memstick</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=e3337ab247a9ffdd52aaadc44c70b3b1b2a4c470</link>
+	  <description><![CDATA[
+	  Info Hash: e3337ab247a9ffdd52aaadc44c70b3b1b2a4c470<br>
+	  Size: 663.44 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/e3337ab247a9ffdd52aaadc44c70b3b1b2a4c470.torrent" length="26789" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">e3337ab247a9ffdd52aaadc44c70b3b1b2a4c470</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">663.44 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">11</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">69</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-ia64-release</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=d15029d5c76700d74e7f6e626ca2bd887c5544d4</link>
+	  <description><![CDATA[
+	  Info Hash: d15029d5c76700d74e7f6e626ca2bd887c5544d4<br>
+	  Size: 748.56 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/d15029d5c76700d74e7f6e626ca2bd887c5544d4.torrent" length="30207" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">d15029d5c76700d74e7f6e626ca2bd887c5544d4</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">748.56 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">12</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">82</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-powerpc-bootonly</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=c4cb3db03d1b05a4838fd93f5e38a4c1d0d2c06f</link>
+	  <description><![CDATA[
+	  Info Hash: c4cb3db03d1b05a4838fd93f5e38a4c1d0d2c06f<br>
+	  Size: 119.89 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/c4cb3db03d1b05a4838fd93f5e38a4c1d0d2c06f.torrent" length="9854" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">c4cb3db03d1b05a4838fd93f5e38a4c1d0d2c06f</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">119.89 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">13</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">36</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-powerpc-memstick</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=8f8f3cedf639a79f18e72b56a6dce79ebe06092b</link>
+	  <description><![CDATA[
+	  Info Hash: 8f8f3cedf639a79f18e72b56a6dce79ebe06092b<br>
+	  Size: 527.09 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/8f8f3cedf639a79f18e72b56a6dce79ebe06092b.torrent" length="21355" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">8f8f3cedf639a79f18e72b56a6dce79ebe06092b</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">527.09 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">12</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">39</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-powerpc-release</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=04311db7173e4d2d63858d007b3b37759cedd5aa</link>
+	  <description><![CDATA[
+	  Info Hash: 04311db7173e4d2d63858d007b3b37759cedd5aa<br>
+	  Size: 482.19 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/04311db7173e4d2d63858d007b3b37759cedd5aa.torrent" length="38833" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">04311db7173e4d2d63858d007b3b37759cedd5aa</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">482.19 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">16</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">81</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-powerpc64-bootonly</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=671dcbe2bbfb9453eac57e057cc6fa0f5729a58c</link>
+	  <description><![CDATA[
+	  Info Hash: 671dcbe2bbfb9453eac57e057cc6fa0f5729a58c<br>
+	  Size: 139.44 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/671dcbe2bbfb9453eac57e057cc6fa0f5729a58c.torrent" length="11419" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">671dcbe2bbfb9453eac57e057cc6fa0f5729a58c</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">139.44 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">11</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">18</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-powerpc64-memstick</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=20b282239ca5e886660746ae28766929a30d8edb</link>
+	  <description><![CDATA[
+	  Info Hash: 20b282239ca5e886660746ae28766929a30d8edb<br>
+	  Size: 606.68 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/20b282239ca5e886660746ae28766929a30d8edb.torrent" length="24539" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">20b282239ca5e886660746ae28766929a30d8edb</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">606.68 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">12</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">34</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-powerpc64-release</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=1f136e82c2ecfa91bc19cd0fb656ae81c9cb0e89</link>
+	  <description><![CDATA[
+	  Info Hash: 1f136e82c2ecfa91bc19cd0fb656ae81c9cb0e89<br>
+	  Size: 555.91 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/1f136e82c2ecfa91bc19cd0fb656ae81c9cb0e89.torrent" length="22497" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">1f136e82c2ecfa91bc19cd0fb656ae81c9cb0e89</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">555.91 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">12</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">38</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-sparc64-bootonly</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=6767e45ca2c040fae530fbec1a7e0cae4fa96743</link>
+	  <description><![CDATA[
+	  Info Hash: 6767e45ca2c040fae530fbec1a7e0cae4fa96743<br>
+	  Size: 135.60 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/6767e45ca2c040fae530fbec1a7e0cae4fa96743.torrent" length="11115" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">6767e45ca2c040fae530fbec1a7e0cae4fa96743</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">135.60 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">11</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">26</torrentItem:completed>
+	</item>
+	<item>
+	  <title>FreeBSD-9.0-RELEASE-sparc64-disc1</title>
+	  <link>http://torrents.FreeBSD.org:8080/stats.html?info_hash=336a9f9658eac08fa195540359e08db1beafe553</link>
+	  <description><![CDATA[
+	  Info Hash: 336a9f9658eac08fa195540359e08db1beafe553<br>
+	  Size: 470.60 MB<br>
+	  Files: 1<br>
+	  ]]></description>
+	  <author>Unknown@unknown.com</author>
+	  <category domain="http://torrents.FreeBSD.org:8080/index.html">None</category>
+	  <enclosure url="http://torrents.FreeBSD.org:8080/torrents/336a9f9658eac08fa195540359e08db1beafe553.torrent" length="37909" type="application/x-bittorrent" />
+	  <guid isPermaLink="false">336a9f9658eac08fa195540359e08db1beafe553</guid>
+	  <pubDate>Fri, 30 Mar 2012 15:13:54 +0000</pubDate>
+	  <source url="http://torrents.FreeBSD.org:8080/rss.xml">FreeBSD BitTorrent Tracker</source>
+	  <torrentItem:infohash title="Info Hash" />
+	  <torrentItem:infostat title="File Information" />
+	  <torrentItem:download title="DL" />
+	  <torrentItem:size title="Size">470.60 MB</torrentItem:size>
+	  <torrentItem:files title="Files">1</torrentItem:files>
+	  <torrentItem:seeders title="Seeders">13</torrentItem:seeders>
+	  <torrentItem:leechers title="Leechers">0</torrentItem:leechers>
+	  <torrentItem:completed title="Completed">49</torrentItem:completed>
+	</item>
+  </channel>
+</rss>

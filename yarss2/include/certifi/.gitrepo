@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/certifi/python-certifi.git
+	branch = master
+	commit = 258de09f05f0096432bfb751612bb7b6b68d9107
+	parent = 20cf26a5cca4a7272947f4e074e5ea7260a311f1
+	method = merge
+	cmdver = 0.3.1
