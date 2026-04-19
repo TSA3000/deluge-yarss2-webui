@@ -1,4 +1,4 @@
-# YaRSS2 v2.2.1 — Deluge RSS plugin with WebUI
+# YaRSS2 v2.2.3 — Deluge RSS plugin with WebUI
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](./LICENSE)
 [![Deluge: 2.x](https://img.shields.io/badge/Deluge-2.x-purple.svg)](https://deluge-torrent.org/)
@@ -72,9 +72,9 @@ Download the egg matching your Deluge's Python version from the
 
 ```bash
 # Adjust path for your Deluge user
-sudo cp YaRSS2-2.2.1-py3.12.egg /var/lib/deluge/.config/deluge/plugins/
-sudo chown deluge:deluge /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.1-py3.12.egg
-sudo chmod 644 /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.1-py3.12.egg
+sudo cp YaRSS2-2.2.3-py3.12.egg /var/lib/deluge/.config/deluge/plugins/
+sudo chown deluge:deluge /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.3-py3.12.egg
+sudo chmod 644 /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.3-py3.12.egg
 sudo systemctl restart deluged deluge-web
 ```
 
@@ -126,8 +126,6 @@ Deferred from this release (still configurable via the GTK client):
 
 - Email message templates editor
 - Tri-state torrent options UI (ask Deluge default / force true / force false)
-- Path autocomplete in Download location / Move completed fields
-- Regex live-preview in subscription editor
 
 These settings round-trip correctly when editing through the WebUI — they're
 preserved from whatever values the GTK client set.

@@ -1,5 +1,49 @@
 ## Changelog ##
 
+v2.2.3 — 2026-04-19 (maintainer: Sam Mahdi; path autocomplete)
+
+Subscription editor — path autocomplete
+
+* The **Download location** and **Move completed to** fields in the
+  Subscription editor now provide live path autocomplete. As you type,
+  a dropdown appears showing existing subdirectories on the daemon's
+  filesystem that match the prefix.
+* Uses the existing `get_completion_paths` @export method on Core —
+  no new backend endpoints needed.
+* Debounced 250 ms between keystrokes to avoid hammering the filesystem.
+* Free typing is fully allowed — you can still type paths that don't
+  exist yet (e.g. directories that will be created on first download).
+* Arrow keys, Enter, Tab and Escape don't trigger re-query so dropdown
+  navigation feels natural.
+* Implemented as a new `Deluge.ux.yarss2.PathComboField` (registered as
+  xtype `yarss2-pathcombo`) — reusable if future tabs need path
+  autocomplete too.
+
+v2.2.2 — 2026-04-19 (maintainer: Sam Mahdi; Regex live-preview)
+
+Subscription editor — live regex preview
+
+* The Subscription edit dialog now has a **Live preview** fieldset that
+  fetches the selected feed's current items and highlights which ones
+  match the include/exclude regex as you type. Matching items are shown
+  in green, excluded items in red with strike-through, non-matching
+  items hidden (or all shown in gray when include regex is empty).
+* Running count: `N of M items match.` (and excluded count when
+  applicable).
+* Regex compile errors are surfaced inline so you see at a glance when
+  you've typed an invalid pattern.
+* Preview uses JavaScript RegExp for speed; the daemon still uses
+  Python `re`. These are near-identical for common feed-filter patterns
+  (`^`, `$`, `\d`, character classes, quantifiers, alternation).
+* Fetch is bypassed through ETag cache: the preview forces a fresh feed
+  body each time by stripping `etag`/`last_modified` validators before
+  calling `get_rssfeed_parsed`.
+* "Refresh feed" button re-runs the fetch on demand.
+* Feed items are cached client-side per editor session — typing in the
+  regex field re-filters locally with zero backend round-trips.
+* Subscription window size increased to 720×720 to accommodate the
+  preview panel.
+
 v2.2.1 — 2026-04-19 (maintainer: Sam Mahdi; WebUI Log tab)
 
 WebUI Log tab
