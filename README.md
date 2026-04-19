@@ -1,4 +1,4 @@
-# YaRSS2 v2.2.0 — Deluge RSS plugin with WebUI
+# YaRSS2 v2.2.1 — Deluge RSS plugin with WebUI
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](./LICENSE)
 [![Deluge: 2.x](https://img.shields.io/badge/Deluge-2.x-purple.svg)](https://deluge-torrent.org/)
@@ -24,8 +24,9 @@ cookies entirely through the browser-based WebUI.
   Per-feed opt-out available for self-signed trackers.
 - **Proper cookie hostname matching** — previous substring match would leak
   cookies from `example.com` to `notexample.com`.
-- **Complete WebUI CRUD** — four-tab preferences page for Feeds, Subscriptions,
-  Cookies, and General settings. No more "use the GTK client" notice.
+- **Complete WebUI CRUD** — five-tab preferences page for Feeds, Subscriptions,
+  Cookies, General settings, and a live Log viewer. No more "use the GTK
+  client" notice.
 - **ETag / If-Modified-Since caching** — don't re-parse feeds that haven't
   changed since last poll.
 - **Configurable concurrency** — run feed fetches in parallel
@@ -44,7 +45,7 @@ for the full list of changes.
 
 - **Original author:** Camillo Dell'mour (YaRSS, 2009)
 - **v1.x–v2.1.x maintainer:** bendikro (2012–2021)
-- **v2.2.0 maintainer:** Sam Mahdi (2026)
+- **v2.2.x maintainer:** Sam Mahdi (2026)
 
 Retains the GPLv3 license and all prior copyright notices. See
 [`LICENSE`](./LICENSE) for license text and [`CHANGELOG.md`](./CHANGELOG.md) for
@@ -71,9 +72,9 @@ Download the egg matching your Deluge's Python version from the
 
 ```bash
 # Adjust path for your Deluge user
-sudo cp YaRSS2-2.2.0-py3.12.egg /var/lib/deluge/.config/deluge/plugins/
-sudo chown deluge:deluge /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.0-py3.12.egg
-sudo chmod 644 /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.0-py3.12.egg
+sudo cp YaRSS2-2.2.1-py3.12.egg /var/lib/deluge/.config/deluge/plugins/
+sudo chown deluge:deluge /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.1-py3.12.egg
+sudo chmod 644 /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.1-py3.12.egg
 sudo systemctl restart deluged deluge-web
 ```
 
@@ -124,7 +125,6 @@ Then copy the egg to your Deluge plugins directory as above.
 Deferred from this release (still configurable via the GTK client):
 
 - Email message templates editor
-- Log panel in WebUI
 - Tri-state torrent options UI (ask Deluge default / force true / force false)
 - Path autocomplete in Download location / Move completed fields
 - Regex live-preview in subscription editor
@@ -139,7 +139,7 @@ matches your Deluge's Python (e.g. `py3.12`, `py3.13`). Deluge fails silently
 on a mismatch. Check `~/.config/deluge/deluged.log` for import errors.
 
 **"Run now" says "not modified" and does nothing.** Fixed in v2.2.0 —
-user-triggered runs now bypass the ETag cache. If you see this on v2.2.0, the
+user-triggered runs bypass the ETag cache. If you see this on v2.2.x, the
 egg may be stale; redeploy the latest.
 
 **Nothing downloads.** Verify the `move_completed` path exists and is writable

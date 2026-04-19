@@ -15,6 +15,7 @@ from yarss2.rssfeed_scheduler import RSSFeedScheduler
 from yarss2.torrent_handling import TorrentHandler
 from yarss2.util import logging
 from yarss2.util.http import get_matching_cookies_dict
+from yarss2.util.log_buffer import attach_buffer
 from yarss2.util.yarss_email import send_torrent_email
 from yarss2.yarss_config import YARSSConfig, get_user_agent
 
@@ -37,6 +38,10 @@ class Core(CorePluginBase):
 
     def enable(self, config=None):
         self.log = logging.getLogger(__name__)
+        # Capture YaRSS2 log records in a ring buffer that the WebUI Log
+        # tab polls. Attached to the top-level `yarss2` namespace so it
+        # picks up records from every submodule automatically.
+        self._log_buffer = attach_buffer("yarss2", capacity=1000)
         self.torrent_handler = TorrentHandler(self.log)
         if config is None:
             self.yarss_config = YARSSConfig(self.log)
@@ -49,6 +54,15 @@ class Core(CorePluginBase):
     def disable(self):
         self.yarss_config.save()
         self.rssfeed_scheduler.disable_timers()
+        # Detach the WebUI log buffer so repeated enable/disable doesn't
+        # stack handlers on the 'yarss2' logger.
+        try:
+            import logging as stdlogging
+            if getattr(self, "_log_buffer", None) is not None:
+                stdlogging.getLogger("yarss2").removeHandler(self._log_buffer)
+                self._log_buffer = None
+        except Exception:
+            pass
 
     def update(self):
         pass
@@ -197,3 +211,23 @@ class Core(CorePluginBase):
         return self.rssfeed_scheduler.rssfeedhandler.get_rssfeed_parsed(rssfeed_data,
                                                                         site_cookies_dict=site_cookies_dict,
                                                                         user_agent=user_agent)
+
+    @export
+    def get_log_messages(self, since_id=0, max_messages=500):
+        """
+        Return YaRSS2 log messages from the in-memory ring buffer. The WebUI
+        Log tab polls this. Pass `since_id` from the last response's
+        `next_id` to get only new messages on each poll.
+        """
+        buf = getattr(self, "_log_buffer", None)
+        if buf is None:
+            return {"items": [], "next_id": 0, "capacity": 0}
+        return buf.get_since(since_id=since_id, max_messages=max_messages)
+
+    @export
+    def clear_log_messages(self):
+        """Empty the in-memory log buffer."""
+        buf = getattr(self, "_log_buffer", None)
+        if buf is not None:
+            buf.clear()
+        return True

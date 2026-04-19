@@ -1,5 +1,21 @@
 ## Changelog ##
 
+v2.2.1 — 2026-04-19 (maintainer: Sam Mahdi; WebUI Log tab)
+
+WebUI Log tab
+
+* New **Log** tab in the WebUI preferences page. Renders the last ~1000
+  YaRSS2 log messages from an in-memory ring buffer attached to the
+  `yarss2` logger namespace on plugin enable. Polls every 3 seconds,
+  color-codes levels (yellow for WARNING, red for ERROR), supports
+  level filtering (INFO / WARNING / ERROR), pause/resume, clear, and
+  auto-scroll. Two new `@export` methods back it:
+  `get_log_messages(since_id, max_messages)` for incremental polling
+  and `clear_log_messages()`. Implemented in a new module
+  `yarss2/util/log_buffer.py` (thread-safe, bounded deque).
+* The **Not yet available in WebUI** note on the General tab updated
+  to remove "log panel" from the list.
+
 v2.2.0 — 2026-04-19 (maintainer: Sam Mahdi; security + correctness + WebUI)
 
 Security

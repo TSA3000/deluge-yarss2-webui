@@ -5,7 +5,7 @@
 # Based on work by:
 # Copyright (C) 2009 Camillo Dell'mour <cdellmour@gmail.com>
 #
-# v2.2.0 maintenance release and WebUI port:
+# v2.2.x maintenance release and WebUI port:
 # Copyright (C) 2026 Sam Mahdi
 #
 # This file is part of YaRSS2 and is licensed under GNU General Public License 3.0, or later, with
@@ -16,9 +16,9 @@
 from setuptools import find_packages, setup
 
 __plugin_name__ = "YaRSS2"
-__author__ = "Bro (original), Sam Mahdi (v2.2.0 maintainer)"
+__author__ = "Bro (original), Sam Mahdi (v2.2.x maintainer)"
 __author_email__ = ""
-__version__ = "2.2.0"
+__version__ = "2.2.1"
 __url__ = "https://github.com/TSA3000/deluge-yarss2-webui"
 __license__ = "GPLv3"
 __description__ = "Yet another RSS 2"
@@ -26,7 +26,7 @@ __long_description__ = """
 Yet another RSS 2, an RSS plugin for Deluge 2.x. Watches RSS feeds,
 filters entries with regex, and auto-adds matching torrents.
 
-v2.2.0 is a security, correctness, and feature release maintained by
+v2.2.x is a security, correctness, and feature release maintained by
 Sam Mahdi, based on bendikro's v2.1.5 and Camillo Dell'mour's original.
 See CHANGELOG.md and RELEASE_NOTES.md for details.
 """

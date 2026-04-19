@@ -752,7 +752,7 @@ Deluge.ux.yarss2.GeneralPanel = Ext.extend(Ext.form.FormPanel, {
             {
                 xtype: 'panel', border: false, bodyStyle: 'padding-top: 20px',
                 html: '<p><b>' + _('Not yet available in WebUI:') + '</b> ' +
-                      _('Email notifications and the log panel. Use the GTK client for those.') +
+                      _('Email notifications and message templates. Use the GTK client for those.') +
                       '</p>'
             }
         ]);
@@ -781,6 +781,191 @@ Deluge.ux.yarss2.GeneralPanel = Ext.extend(Ext.form.FormPanel, {
 });
 
 /* ------------------------------------------------------------------ *
+ * Log tab — polls the YaRSS2 core's in-memory ring buffer and renders
+ * recent log messages in a scrolling <pre>. Polling pauses when the
+ * user toggles the Pause button; the tab keeps polling while hidden
+ * so when the user switches to it, recent history is already there.
+ * ------------------------------------------------------------------ */
+
+Deluge.ux.yarss2.LogPanel = Ext.extend(Ext.Panel, {
+    title: _('Log'),
+    layout: 'fit',
+    border: false,
+    cls: 'yarss2-log-panel',
+
+    lastId: 0,
+    pollInterval: 3000,
+    levelFilter: 'ALL',
+    paused: false,
+
+    initComponent: function() {
+        var self = this;
+
+        this.levelCombo = new Ext.form.ComboBox({
+            store: new Ext.data.ArrayStore({
+                fields: ['v', 'n'],
+                data: [['ALL', _('All levels')],
+                       ['INFO', 'INFO and above'],
+                       ['WARNING', _('WARNING and above')],
+                       ['ERROR', _('ERROR only')]]
+            }),
+            valueField: 'v', displayField: 'n',
+            mode: 'local', triggerAction: 'all',
+            editable: false, width: 180,
+            value: 'ALL'
+        });
+        this.levelCombo.on('select', function(cb, rec) {
+            self.levelFilter = rec.get('v');
+            self.redraw();
+        });
+
+        this.pauseBtn = new Ext.Toolbar.Button({
+            text: _('Pause'), iconCls: 'icon-pause',
+            enableToggle: true,
+            toggleHandler: function(btn, pressed) {
+                self.paused = pressed;
+                btn.setText(pressed ? _('Resume') : _('Pause'));
+            }
+        });
+
+        this.clearBtn = new Ext.Toolbar.Button({
+            text: _('Clear'), iconCls: 'icon-remove',
+            handler: function() {
+                Deluge.ux.yarss2.confirm(
+                    _('Clear log'),
+                    _('Clear all buffered log messages? This only affects the in-memory buffer shown here; the daemon log file is unaffected.'),
+                    function() {
+                        Deluge.ux.yarss2.client().clear_log_messages().then(
+                            function() {
+                                self.entries = [];
+                                self.lastId = 0;
+                                self.redraw();
+                            },
+                            function(err) { Deluge.ux.yarss2.errorAlert(_('Clear failed'), err); }
+                        );
+                    }
+                );
+            }
+        });
+
+        this.autoScrollCheck = new Ext.form.Checkbox({
+            boxLabel: _('Auto-scroll'), checked: true,
+            listeners: { check: function(cb, v) { self.autoScroll = v; } }
+        });
+        this.autoScroll = true;
+
+        Ext.apply(this, {
+            tbar: [_('Level:'), ' ', this.levelCombo,
+                   ' ', this.pauseBtn, ' ', this.clearBtn,
+                   '->', this.autoScrollCheck],
+            html: '<pre class="yarss2-log-body" style="margin:0;padding:8px;' +
+                  'font-family:Menlo,Consolas,monospace;font-size:11px;' +
+                  'line-height:1.35;white-space:pre-wrap;word-break:break-word;' +
+                  'height:100%;overflow:auto;"></pre>'
+        });
+
+        Deluge.ux.yarss2.LogPanel.superclass.initComponent.call(this);
+
+        this.entries = [];
+        this.maxClientEntries = 2000;
+
+        this.on('afterrender', this.startPolling, this);
+        this.on('beforedestroy', this.stopPolling, this);
+    },
+
+    getBodyEl: function() {
+        var el = this.body ? this.body.dom : null;
+        if (!el) return null;
+        return el.querySelector('pre.yarss2-log-body');
+    },
+
+    startPolling: function() {
+        var self = this;
+        if (this._timer) return;
+        this._timer = setInterval(function() { self.poll(); }, this.pollInterval);
+        this.poll();
+    },
+
+    stopPolling: function() {
+        if (this._timer) {
+            clearInterval(this._timer);
+            this._timer = null;
+        }
+    },
+
+    poll: function() {
+        if (this.paused) return;
+        if (!this.rendered) return;
+        var self = this;
+        Deluge.ux.yarss2.client().get_log_messages(this.lastId, 500).then(
+            function(result) {
+                if (!result || !result.items) return;
+                if (result.items.length > 0) {
+                    self.entries = self.entries.concat(result.items);
+                    if (self.entries.length > self.maxClientEntries) {
+                        self.entries = self.entries.slice(-self.maxClientEntries);
+                    }
+                    self.lastId = result.items[result.items.length - 1].id;
+                    self.redraw();
+                }
+            },
+            function(err) {
+                if (window.console) console.warn('YaRSS2 log poll failed:', err);
+            }
+        );
+    },
+
+    levelMatches: function(level) {
+        if (this.levelFilter === 'ALL') return true;
+        if (this.levelFilter === 'INFO') return ['INFO','WARNING','ERROR','CRITICAL'].indexOf(level) !== -1;
+        if (this.levelFilter === 'WARNING') return ['WARNING','ERROR','CRITICAL'].indexOf(level) !== -1;
+        if (this.levelFilter === 'ERROR') return ['ERROR','CRITICAL'].indexOf(level) !== -1;
+        return true;
+    },
+
+    formatEntry: function(e) {
+        var when = new Date(e.time * 1000);
+        var hh = ('0' + when.getHours()).slice(-2);
+        var mm = ('0' + when.getMinutes()).slice(-2);
+        var ss = ('0' + when.getSeconds()).slice(-2);
+        var ts = hh + ':' + mm + ':' + ss;
+        var level = String(e.level || 'INFO');
+        var color = 'inherit';
+        if (level === 'WARNING') color = '#d9a441';
+        else if (level === 'ERROR' || level === 'CRITICAL') color = '#e25555';
+        else if (level === 'DEBUG') color = '#888';
+        // Strip the python Formatter prefix so the line isn't double-timestamped.
+        // Expected format: "HH:MM:SS [LEVEL] logger: message"
+        var msg = e.message || '';
+        var m = msg.match(/^\d{2}:\d{2}:\d{2}\s+\[[A-Z]+\]\s+\S+:\s+([\s\S]*)$/);
+        if (m) msg = m[1];
+        return '<span style="color:' + color + '">' +
+               ts + ' [' + level + '] ' +
+               Ext.util.Format.htmlEncode(msg) +
+               '</span>';
+    },
+
+    redraw: function() {
+        var el = this.getBodyEl();
+        if (!el) return;
+        var self = this;
+        var html = this.entries
+            .filter(function(e) { return self.levelMatches(e.level); })
+            .map(function(e) { return self.formatEntry(e); })
+            .join('\n');
+        el.innerHTML = html;
+        if (this.autoScroll) {
+            el.scrollTop = el.scrollHeight;
+        }
+    },
+
+    reload: function(_config) {
+        // Triggered when the page (re-)shows. Force an immediate poll.
+        this.poll();
+    }
+});
+
+/* ------------------------------------------------------------------ *
  * Preferences page — the top-level container.
  * ------------------------------------------------------------------ */
 
@@ -797,6 +982,7 @@ Deluge.ux.preferences.YaRSS2Page = Ext.extend(Ext.Panel, {
         this.subsGrid    = new Deluge.ux.yarss2.SubscriptionsGrid();
         this.cookiesGrid = new Deluge.ux.yarss2.CookiesGrid();
         this.generalTab  = new Deluge.ux.yarss2.GeneralPanel();
+        this.logTab      = new Deluge.ux.yarss2.LogPanel();
 
         var self = this;
         [this.feedsGrid, this.subsGrid, this.cookiesGrid].forEach(function(g) {
@@ -805,7 +991,8 @@ Deluge.ux.preferences.YaRSS2Page = Ext.extend(Ext.Panel, {
 
         this.tabs = new Ext.TabPanel({
             activeTab: 0, border: false,
-            items: [this.feedsGrid, this.subsGrid, this.cookiesGrid, this.generalTab]
+            items: [this.feedsGrid, this.subsGrid, this.cookiesGrid,
+                    this.generalTab, this.logTab]
         });
         this.add(this.tabs);
 
@@ -822,6 +1009,7 @@ Deluge.ux.preferences.YaRSS2Page = Ext.extend(Ext.Panel, {
                 self.subsGrid.reload(config);
                 self.cookiesGrid.reload(config);
                 self.generalTab.reload(config);
+                if (self.logTab && self.logTab.reload) self.logTab.reload(config);
             },
             function(err) { Deluge.ux.yarss2.errorAlert(_('Could not load YaRSS2 config'), err); }
         );
