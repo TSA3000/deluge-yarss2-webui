@@ -991,6 +991,8 @@ Deluge.ux.preferences.YaRSS2Page = Ext.extend(Ext.Panel, {
 
         this.tabs = new Ext.TabPanel({
             activeTab: 0, border: false,
+            enableTabScroll: true,
+            resizeTabs: true, minTabWidth: 90, tabWidth: 110,
             items: [this.feedsGrid, this.subsGrid, this.cookiesGrid,
                     this.generalTab, this.logTab]
         });
