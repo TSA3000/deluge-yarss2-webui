@@ -123,6 +123,96 @@ Deluge.ux.yarss2.confirm = function(title, msg, onYes) {
 };
 
 /* ------------------------------------------------------------------ *
+ * Path autocomplete field — behaves like a TextField (no visible
+ * dropdown trigger) but calls yarss2.get_completion_paths on keyup
+ * and shows matching directories as a dropdown. User can still free-
+ * type paths that don't exist yet (forceSelection is false).
+ * ------------------------------------------------------------------ */
+
+Deluge.ux.yarss2.PathComboField = Ext.extend(Ext.form.ComboBox, {
+    // Look-and-feel: make the combo resemble a regular textfield.
+    hideTrigger: true,
+    typeAhead: false,
+    forceSelection: false,
+    editable: true,
+    // We manage queries manually, so local mode keeps ComboBox from
+    // triggering its own load.
+    mode: 'local',
+    triggerAction: 'all',
+    minChars: 1,
+    // Dropdown dimensions.
+    listWidth: 420,
+    itemSelector: 'div.x-combo-list-item',
+    displayField: 'path',
+    valueField: 'path',
+    // Delay between last keystroke and completion request (ms).
+    completionDelay: 250,
+
+    initComponent: function() {
+        this.store = new Ext.data.JsonStore({
+            fields: ['path'],
+            data: []
+        });
+        Deluge.ux.yarss2.PathComboField.superclass.initComponent.call(this);
+        this.on('keyup', this.onKeyUpForCompletion, this);
+        this.on('beforedestroy', function() {
+            if (this._completionTimer) clearTimeout(this._completionTimer);
+        }, this);
+    },
+
+    // Swallow empty-string suggestions and skip keys that control the
+    // dropdown itself (arrows, enter, tab, escape).
+    onKeyUpForCompletion: function(field, e) {
+        var k = e.getKey();
+        if (k === e.UP || k === e.DOWN || k === e.ENTER ||
+            k === e.TAB || k === e.ESC || k === e.LEFT || k === e.RIGHT) {
+            return;
+        }
+        var self = this;
+        if (this._completionTimer) clearTimeout(this._completionTimer);
+        this._completionTimer = setTimeout(function() {
+            self.fetchCompletions();
+        }, this.completionDelay);
+    },
+
+    fetchCompletions: function() {
+        var self = this;
+        var value = this.getRawValue() || '';
+        if (value.length < this.minChars) {
+            this.collapse();
+            return;
+        }
+        Deluge.ux.yarss2.client().get_completion_paths({
+            completion_text: value,
+            show_hidden_files: false
+        }).then(
+            function(result) {
+                var paths = (result && result.paths) || [];
+                // Deduplicate (already sorted server-side).
+                var uniq = [];
+                var seen = {};
+                for (var i = 0; i < paths.length; i++) {
+                    if (!seen[paths[i]]) { seen[paths[i]] = true; uniq.push(paths[i]); }
+                }
+                self.store.loadData(uniq.map(function(p) { return { path: p }; }));
+                if (uniq.length > 0) {
+                    self.expand();
+                } else {
+                    self.collapse();
+                }
+            },
+            function(err) {
+                // Don't spam the user during typing; just log.
+                if (window.console) console.warn('Path completion failed:', err);
+                self.collapse();
+            }
+        );
+    }
+});
+// Register so xtype: 'yarss2-pathcombo' works.
+Ext.reg('yarss2-pathcombo', Deluge.ux.yarss2.PathComboField);
+
+/* ------------------------------------------------------------------ *
  * RSS Feed edit window
  * ------------------------------------------------------------------ */
 
@@ -330,10 +420,12 @@ Deluge.ux.yarss2.SubscriptionWindow = Ext.extend(Ext.Window, {
                     xtype: 'fieldset', title: _('Torrent options'), collapsible: true, collapsed: true,
                     defaults: { anchor: '100%' },
                     items: [
-                        { xtype: 'textfield', fieldLabel: _('Download location'),
-                            name: 'download_location' },
-                        { xtype: 'textfield', fieldLabel: _('Move completed to'),
-                            name: 'move_completed' },
+                        { xtype: 'yarss2-pathcombo', fieldLabel: _('Download location'),
+                            name: 'download_location',
+                            emptyText: _('Leave empty for Deluge default') },
+                        { xtype: 'yarss2-pathcombo', fieldLabel: _('Move completed to'),
+                            name: 'move_completed',
+                            emptyText: _('Leave empty to disable move-on-complete') },
                         { xtype: 'textfield', fieldLabel: _('Label'), name: 'label',
                             emptyText: _('Requires the Label plugin') },
                         { xtype: 'numberfield', fieldLabel: _('Max download speed (KiB/s)'),
