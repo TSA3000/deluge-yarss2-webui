@@ -227,16 +227,22 @@ Deluge.ux.yarss2.RssFeedWindow = Ext.extend(Ext.Window, {
 
 Deluge.ux.yarss2.SubscriptionWindow = Ext.extend(Ext.Window, {
     title: _('Subscription'),
-    width: 560,
-    height: 600,
+    width: 720,
+    height: 720,
     layout: 'fit',
     modal: true,
     plain: true,
     closeAction: 'hide',
 
+    // Cached feed items for live preview. Reset on feed change.
+    _previewItems: null,
+    _previewFeedKey: null,
+    _previewLoading: false,
+
     initComponent: function() {
         Deluge.ux.yarss2.SubscriptionWindow.superclass.initComponent.call(this);
 
+        var self = this;
         this.feedStore = new Ext.data.JsonStore({
             fields: ['key', 'name'],
             data: []
@@ -260,7 +266,12 @@ Deluge.ux.yarss2.SubscriptionWindow = Ext.extend(Ext.Window, {
                             xtype: 'combo', fieldLabel: _('RSS Feed'), name: 'rssfeed_key',
                             store: this.feedStore, valueField: 'key', displayField: 'name',
                             mode: 'local', triggerAction: 'all', forceSelection: true,
-                            editable: false, allowBlank: false
+                            editable: false, allowBlank: false,
+                            listeners: {
+                                select: function(cb, rec) {
+                                    self.onFeedChanged(rec.get('key'));
+                                }
+                            }
                         },
                         { xtype: 'checkbox', fieldLabel: _('Active'), name: 'active', checked: true }
                     ]
@@ -271,16 +282,48 @@ Deluge.ux.yarss2.SubscriptionWindow = Ext.extend(Ext.Window, {
                     items: [
                         { xtype: 'textfield', fieldLabel: _('Regex include'),
                             name: 'regex_include',
-                            emptyText: _('e.g. \\.S01E\\d+\\.1080p.*x265') },
+                            emptyText: _('e.g. \\.S01E\\d+\\.1080p.*x265'),
+                            enableKeyEvents: true,
+                            listeners: { keyup: function() { self.updatePreview(); } } },
                         { xtype: 'checkbox', fieldLabel: _('Ignore case (include)'),
-                            name: 'regex_include_ignorecase', checked: true },
+                            name: 'regex_include_ignorecase', checked: true,
+                            listeners: { check: function() { self.updatePreview(); } } },
                         { xtype: 'textfield', fieldLabel: _('Regex exclude'),
-                            name: 'regex_exclude' },
+                            name: 'regex_exclude',
+                            enableKeyEvents: true,
+                            listeners: { keyup: function() { self.updatePreview(); } } },
                         { xtype: 'checkbox', fieldLabel: _('Ignore case (exclude)'),
-                            name: 'regex_exclude_ignorecase', checked: true },
+                            name: 'regex_exclude_ignorecase', checked: true,
+                            listeners: { check: function() { self.updatePreview(); } } },
                         { xtype: 'checkbox', fieldLabel: _('Ignore timestamps'),
                             name: 'ignore_timestamp',
                             boxLabel: _('Match items even if published before last run') }
+                    ]
+                },
+                {
+                    xtype: 'fieldset', title: _('Live preview'), collapsible: true, collapsed: false,
+                    defaults: { anchor: '100%' },
+                    items: [
+                        {
+                            xtype: 'panel', border: false, bodyStyle: 'padding: 0 4px 6px 4px',
+                            html: '<div class="yarss2-preview-status" style="font-size:11px;color:#888;margin-bottom:4px;">' +
+                                  _('Select a feed above to see items. Matching items are green; excluded items are red.') +
+                                  '</div>' +
+                                  '<div class="yarss2-preview-list" style="height:200px;overflow:auto;' +
+                                  'border:1px solid #444;padding:4px;font-family:Menlo,Consolas,monospace;' +
+                                  'font-size:11px;line-height:1.4;white-space:nowrap;"></div>' +
+                                  '<div style="font-size:10px;color:#888;margin-top:4px;">' +
+                                  _('Preview uses JavaScript RegExp for speed. The daemon uses Python re, which is near-identical for common patterns.') +
+                                  '</div>'
+                        },
+                        {
+                            xtype: 'panel', border: false, bodyStyle: 'padding: 4px',
+                            layout: 'hbox',
+                            items: [
+                                { xtype: 'button', text: _('Refresh feed'),
+                                    handler: function() { self.fetchPreviewItems(true); } }
+                            ]
+                        }
                     ]
                 },
                 {
@@ -312,12 +355,173 @@ Deluge.ux.yarss2.SubscriptionWindow = Ext.extend(Ext.Window, {
         this.cancelBtn = this.addButton({ text: _('Cancel'), handler: this.onCancel, scope: this });
     },
 
+    // DOM helpers for the preview block.
+    getPreviewListEl: function() {
+        var body = this.form && this.form.body ? this.form.body.dom : null;
+        if (!body) return null;
+        return body.querySelector('.yarss2-preview-list');
+    },
+    getPreviewStatusEl: function() {
+        var body = this.form && this.form.body ? this.form.body.dom : null;
+        if (!body) return null;
+        return body.querySelector('.yarss2-preview-status');
+    },
+
+    // Called when the feed combo selection changes — invalidate cache
+    // and fetch the new feed's items.
+    onFeedChanged: function(feedKey) {
+        this._previewFeedKey = feedKey;
+        this._previewItems = null;
+        this.fetchPreviewItems(false);
+    },
+
+    // Fetch the feed's current items via the backend. If `force` is true,
+    // refetch even if we already have cached items for this feed.
+    fetchPreviewItems: function(force) {
+        var self = this;
+        if (!this._previewFeedKey) return;
+        if (this._previewLoading) return;
+        if (!force && this._previewItems) { this.updatePreview(); return; }
+
+        var feed = this._feedsByKey && this._feedsByKey[this._previewFeedKey];
+        if (!feed) return;
+
+        // Strip the cached ETag/Last-Modified validators so the daemon
+        // re-fetches the feed body instead of returning 304 Not Modified
+        // with no items. Preview needs the actual content.
+        var feedCopy = Ext.apply({}, feed);
+        feedCopy.etag = '';
+        feedCopy.last_modified = '';
+
+        var status = this.getPreviewStatusEl();
+        if (status) status.innerHTML = _('Fetching feed items…');
+        this._previewLoading = true;
+
+        Deluge.ux.yarss2.client().get_rssfeed_parsed(feedCopy, null, feedCopy.user_agent || null).then(
+            function(result) {
+                self._previewLoading = false;
+                if (!result) {
+                    if (status) status.innerHTML = _('Failed to fetch feed.');
+                    return;
+                }
+                if (result.not_modified) {
+                    // 304 = the daemon's cache is stale for preview purposes;
+                    // we'd need a cache-bypass. For now surface the state.
+                    if (status) status.innerHTML = _('Feed returned 304 (not modified). Click "Refresh feed" to force a fresh fetch.');
+                }
+                // items is a dict of {key: {title, link, ...}}
+                var itemsDict = result.items || {};
+                var arr = [];
+                Ext.iterate(itemsDict, function(k, v) { arr.push(v); });
+                self._previewItems = arr;
+                self.updatePreview();
+            },
+            function(err) {
+                self._previewLoading = false;
+                if (status) status.innerHTML = _('Failed to fetch: ') +
+                    Ext.util.Format.htmlEncode((err && err.message) ? err.message : String(err));
+            }
+        );
+    },
+
+    // Re-filter the cached items against current regex fields and render.
+    updatePreview: function() {
+        var listEl = this.getPreviewListEl();
+        var statusEl = this.getPreviewStatusEl();
+        if (!listEl) return;
+
+        if (!this._previewItems) {
+            if (statusEl && !this._previewLoading) {
+                statusEl.innerHTML = _('Select a feed above to see items.');
+            }
+            listEl.innerHTML = '';
+            return;
+        }
+
+        var v = Deluge.ux.yarss2.readForm(this.form);
+        var incRe = this._safeRegex(v.regex_include, !!v.regex_include_ignorecase);
+        var excRe = this._safeRegex(v.regex_exclude, !!v.regex_exclude_ignorecase);
+
+        // If include regex failed to compile, show the error.
+        if (incRe && incRe.error) {
+            statusEl.innerHTML = '<span style="color:#e25555">' +
+                _('Include regex error: ') + Ext.util.Format.htmlEncode(incRe.error) + '</span>';
+            listEl.innerHTML = '';
+            return;
+        }
+        if (excRe && excRe.error) {
+            statusEl.innerHTML = '<span style="color:#e25555">' +
+                _('Exclude regex error: ') + Ext.util.Format.htmlEncode(excRe.error) + '</span>';
+            listEl.innerHTML = '';
+            return;
+        }
+
+        var items = this._previewItems;
+        var matches = 0, excluded = 0;
+        var rows = [];
+        for (var i = 0; i < items.length; i++) {
+            var title = items[i].title || '';
+            var included = incRe ? incRe.re.test(title) : false;
+            var isExcluded = included && excRe ? excRe.re.test(title) : false;
+            var color = '#888';           // default: not matched
+            var decoration = 'none';
+            if (included && !isExcluded) { color = '#6ac26a'; matches++; }
+            else if (included && isExcluded) { color = '#e25555'; decoration = 'line-through'; excluded++; }
+            // Only show matched and excluded items when there's an include regex,
+            // or show all items when the include regex is empty.
+            if (incRe && !included) continue;
+            rows.push('<div style="color:' + color + ';text-decoration:' + decoration + '">' +
+                      Ext.util.Format.htmlEncode(title) + '</div>');
+        }
+
+        var summary;
+        var total = items.length;
+        if (!incRe) {
+            summary = String.format(_('{0} items in feed. Type an include regex above to filter.'), total);
+            // Show all items in gray when there's no regex yet.
+            rows = items.map(function(it) {
+                return '<div style="color:#aaa">' +
+                       Ext.util.Format.htmlEncode(it.title || '') + '</div>';
+            });
+        } else if (excluded > 0) {
+            summary = String.format(
+                _('{0} of {1} items match (and {2} excluded).'),
+                matches, total, excluded);
+        } else {
+            summary = String.format(
+                _('{0} of {1} items match.'), matches, total);
+        }
+        statusEl.innerHTML = summary;
+        listEl.innerHTML = rows.join('');
+    },
+
+    // Compile a JS RegExp safely. Returns { re: RegExp } or { error: msg }
+    // or null for empty input.
+    _safeRegex: function(pattern, ignoreCase) {
+        if (!pattern) return null;
+        try {
+            return { re: new RegExp(pattern, ignoreCase ? 'i' : '') };
+        } catch (e) {
+            return { error: e.message };
+        }
+    },
+
     showForRecord: function(record, feeds) {
         this.editingRecord = record;
         this.setTitle(record ? _('Edit Subscription') : _('Add Subscription'));
 
         // Populate the feed combo from the feeds currently in config.
         this.feedStore.loadData(feeds.map(function(f) { return { key: f.key, name: f.name }; }));
+
+        // Keep the full feed records keyed by id so fetchPreviewItems can
+        // retrieve url/site/user_agent/etc. The combo store only has {key,name}.
+        this._feedsByKey = {};
+        var self = this;
+        feeds.forEach(function(f) { self._feedsByKey[f.key] = f; });
+
+        // Reset preview cache between opens.
+        this._previewItems = null;
+        this._previewLoading = false;
 
         var defaults = {
             name: '', rssfeed_key: feeds.length ? feeds[0].key : '',
@@ -329,8 +533,16 @@ Deluge.ux.yarss2.SubscriptionWindow = Ext.extend(Ext.Window, {
             max_download_speed: -2, max_upload_speed: -2,
             max_connections: -2, max_upload_slots: -2
         };
-        this.form.getForm().setValues(Ext.apply(defaults, record || {}));
+        var values = Ext.apply(defaults, record || {});
+        this.form.getForm().setValues(values);
+        this._previewFeedKey = values.rssfeed_key;
         this.show();
+
+        // Kick off the initial preview fetch after the window has rendered.
+        // Deferring with setTimeout ensures the preview DOM is in place.
+        setTimeout(function() {
+            self.fetchPreviewItems(false);
+        }, 50);
     },
 
     onSave: function() {
