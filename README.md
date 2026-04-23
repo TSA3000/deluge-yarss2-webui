@@ -3,6 +3,9 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](./LICENSE)
 [![Deluge: 2.x](https://img.shields.io/badge/Deluge-2.x-purple.svg)](https://deluge-torrent.org/)
 [![Python: 3.6+](https://img.shields.io/badge/Python-3.6%2B-green.svg)](https://www.python.org/)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-support-FFDD00?style=flat-square&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/tsa3000)
+
+---
 
 A security, correctness, and feature release of the **YaRSS2** plugin for
 Deluge 2.x, with a complete **WebUI** configuration interface.
