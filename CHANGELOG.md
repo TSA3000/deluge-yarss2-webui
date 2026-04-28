@@ -1,5 +1,30 @@
 ## Changelog ##
 
+v2.2.4 — 2026-04-19 (maintainer: Sam Mahdi; floating window UI)
+
+WebUI window mode
+
+* New **YaRSS2** button in the Deluge main toolbar opens YaRSS2 in a
+  floating, resizable, draggable window — no longer trapped inside the
+  modal Preferences dialog. The window is non-modal, so the torrent
+  list stays interactive while it's open.
+* Same five tabs as before (Feeds / Subscriptions / Cookies / General /
+  Log) — same code paths, just rendered in a free-standing window.
+* Default size 1000x700 (vs the cramped Preferences pane), with min
+  size 700x500 to keep the regex preview and Log tab readable.
+* Maximizable, draggable, constrained-to-viewport so the title bar
+  can't be lost off-screen.
+* Singleton window — clicking the toolbar button while the window is
+  already open brings it to the front instead of opening a duplicate.
+* Closing the window hides it (preserves state); reopening reuses the
+  same instance and just refreshes config.
+* The legacy **Preferences -> YaRSS2** entry is preserved for users
+  with existing muscle memory; both paths show identical content.
+* Internal refactor: the tab panel construction is now a shared factory
+  (`buildTabPanel`) consumed by both the Preferences page and the
+  Window, so future feature additions land in both surfaces
+  automatically.
+
 v2.2.3 — 2026-04-19 (maintainer: Sam Mahdi; path autocomplete)
 
 Subscription editor — path autocomplete

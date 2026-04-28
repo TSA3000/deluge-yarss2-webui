@@ -1,11 +1,8 @@
-# YaRSS2 v2.2.3 — Deluge RSS plugin with WebUI
+# YaRSS2 v2.2.4 — Deluge RSS plugin with WebUI
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](./LICENSE)
 [![Deluge: 2.x](https://img.shields.io/badge/Deluge-2.x-purple.svg)](https://deluge-torrent.org/)
 [![Python: 3.6+](https://img.shields.io/badge/Python-3.6%2B-green.svg)](https://www.python.org/)
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-support-FFDD00?style=flat-square&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/tsa3000)
-
----
 
 A security, correctness, and feature release of the **YaRSS2** plugin for
 Deluge 2.x, with a complete **WebUI** configuration interface.
@@ -75,9 +72,9 @@ Download the egg matching your Deluge's Python version from the
 
 ```bash
 # Adjust path for your Deluge user
-sudo cp YaRSS2-2.2.3-py3.12.egg /var/lib/deluge/.config/deluge/plugins/
-sudo chown deluge:deluge /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.3-py3.12.egg
-sudo chmod 644 /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.3-py3.12.egg
+sudo cp YaRSS2-2.2.4-py3.12.egg /var/lib/deluge/.config/deluge/plugins/
+sudo chown deluge:deluge /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.4-py3.12.egg
+sudo chmod 644 /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.4-py3.12.egg
 sudo systemctl restart deluged deluge-web
 ```
 
@@ -114,6 +111,10 @@ Then copy the egg to your Deluge plugins directory as above.
    `^Show Name S\d+E\d+ 1080p`. Optionally set "Move completed to". Save.
 3. **RSS Feeds tab → select your feed → Run now** to trigger an immediate
    fetch. Check your Deluge main view — matching torrents should appear.
+
+New to regex? See [**REGEX-TUTORIAL.md**](./REGEX-TUTORIAL.md) for a
+comprehensive guide from the basics through to production-quality filter
+patterns.
 
 ## Upgrade notes from v2.1.x
 

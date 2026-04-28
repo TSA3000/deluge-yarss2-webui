@@ -1273,6 +1273,56 @@ Deluge.ux.yarss2.LogPanel = Ext.extend(Ext.Panel, {
  * Preferences page — the top-level container.
  * ------------------------------------------------------------------ */
 
+/* ------------------------------------------------------------------ *
+ * Shared tab-panel factory — builds and wires the 5 tabs (Feeds /
+ * Subscriptions / Cookies / General / Log) along with the reload
+ * function that re-fetches config and pushes it to each. Both the
+ * Preferences page and the standalone Window consume this so the
+ * UI is identical in both surfaces.
+ * ------------------------------------------------------------------ */
+
+Deluge.ux.yarss2.buildTabPanel = function(owner) {
+    owner.feedsGrid   = new Deluge.ux.yarss2.FeedsGrid();
+    owner.subsGrid    = new Deluge.ux.yarss2.SubscriptionsGrid();
+    owner.cookiesGrid = new Deluge.ux.yarss2.CookiesGrid();
+    owner.generalTab  = new Deluge.ux.yarss2.GeneralPanel();
+    owner.logTab      = new Deluge.ux.yarss2.LogPanel();
+
+    [owner.feedsGrid, owner.subsGrid, owner.cookiesGrid].forEach(function(g) {
+        g.on('yarss2-changed', owner.reloadAll, owner);
+    });
+
+    return new Ext.TabPanel({
+        activeTab: 0, border: false,
+        enableTabScroll: true,
+        resizeTabs: true, minTabWidth: 90, tabWidth: 110,
+        items: [owner.feedsGrid, owner.subsGrid, owner.cookiesGrid,
+                owner.generalTab, owner.logTab]
+    });
+};
+
+// Shared reload — called by both the Preferences page and the Window.
+// Fetches config and broadcasts to all 5 tabs.
+Deluge.ux.yarss2.reloadAllTabs = function(owner) {
+    Deluge.ux.yarss2.client().get_config().then(
+        function(config) {
+            owner.currentConfig = config;
+            owner.feedsGrid.reload(config);
+            owner.subsGrid.reload(config);
+            owner.cookiesGrid.reload(config);
+            owner.generalTab.reload(config);
+            if (owner.logTab && owner.logTab.reload) owner.logTab.reload(config);
+        },
+        function(err) { Deluge.ux.yarss2.errorAlert(_('Could not load YaRSS2 config'), err); }
+    );
+};
+
+/* ------------------------------------------------------------------ *
+ * Preferences page — the legacy in-Preferences view. Still works for
+ * users with that muscle memory; new toolbar button opens the floating
+ * window instead.
+ * ------------------------------------------------------------------ */
+
 Deluge.ux.preferences.YaRSS2Page = Ext.extend(Ext.Panel, {
     title: _('YaRSS2'),
     header: false,
@@ -1281,45 +1331,44 @@ Deluge.ux.preferences.YaRSS2Page = Ext.extend(Ext.Panel, {
 
     initComponent: function() {
         Deluge.ux.preferences.YaRSS2Page.superclass.initComponent.call(this);
-
-        this.feedsGrid   = new Deluge.ux.yarss2.FeedsGrid();
-        this.subsGrid    = new Deluge.ux.yarss2.SubscriptionsGrid();
-        this.cookiesGrid = new Deluge.ux.yarss2.CookiesGrid();
-        this.generalTab  = new Deluge.ux.yarss2.GeneralPanel();
-        this.logTab      = new Deluge.ux.yarss2.LogPanel();
-
-        var self = this;
-        [this.feedsGrid, this.subsGrid, this.cookiesGrid].forEach(function(g) {
-            g.on('yarss2-changed', self.reload, self);
-        });
-
-        this.tabs = new Ext.TabPanel({
-            activeTab: 0, border: false,
-            enableTabScroll: true,
-            resizeTabs: true, minTabWidth: 90, tabWidth: 110,
-            items: [this.feedsGrid, this.subsGrid, this.cookiesGrid,
-                    this.generalTab, this.logTab]
-        });
+        this.tabs = Deluge.ux.yarss2.buildTabPanel(this);
         this.add(this.tabs);
-
-        // Refresh whenever the preferences page becomes visible.
-        this.on('show', this.reload, this);
+        this.on('show', this.reloadAll, this);
     },
 
-    reload: function() {
-        var self = this;
-        Deluge.ux.yarss2.client().get_config().then(
-            function(config) {
-                self.currentConfig = config;
-                self.feedsGrid.reload(config);
-                self.subsGrid.reload(config);
-                self.cookiesGrid.reload(config);
-                self.generalTab.reload(config);
-                if (self.logTab && self.logTab.reload) self.logTab.reload(config);
-            },
-            function(err) { Deluge.ux.yarss2.errorAlert(_('Could not load YaRSS2 config'), err); }
-        );
-    }
+    reloadAll: function() { Deluge.ux.yarss2.reloadAllTabs(this); }
+});
+
+/* ------------------------------------------------------------------ *
+ * Standalone floating window — non-modal, resizable, draggable. Same
+ * tabs as the Preferences page. The plugin keeps a single instance and
+ * shows/hides it instead of creating a new one each click.
+ * ------------------------------------------------------------------ */
+
+Deluge.ux.yarss2.YaRSS2Window = Ext.extend(Ext.Window, {
+    title: _('YaRSS2'),
+    width: 1000,
+    height: 700,
+    minWidth: 700,
+    minHeight: 500,
+    layout: 'fit',
+    closeAction: 'hide',     // keep instance alive, just hide on close
+    resizable: true,
+    maximizable: true,
+    constrainHeader: true,   // can't drag title bar off-screen
+    plain: true,
+    border: false,
+
+    initComponent: function() {
+        Deluge.ux.yarss2.YaRSS2Window.superclass.initComponent.call(this);
+        this.tabs = Deluge.ux.yarss2.buildTabPanel(this);
+        this.add(this.tabs);
+        // Refresh on every show so the window reflects current config
+        // even if it changed via Preferences while the window was hidden.
+        this.on('show', this.reloadAll, this);
+    },
+
+    reloadAll: function() { Deluge.ux.yarss2.reloadAllTabs(this); }
 });
 
 /* ------------------------------------------------------------------ *
@@ -1331,12 +1380,72 @@ Deluge.plugins.YaRSS2Plugin = Ext.extend(Deluge.Plugin, {
 
     onDisable: function() {
         deluge.preferences.removePage(this.prefsPage);
+        // Remove our toolbar button if we added one.
+        if (this._toolbarButton) {
+            try {
+                var tb = deluge.toolbar;
+                if (tb) {
+                    if (typeof tb.remove === 'function') {
+                        tb.remove(this._toolbarButton);
+                    } else if (tb.items && tb.items.remove) {
+                        tb.items.remove(this._toolbarButton);
+                    }
+                    if (tb.doLayout) tb.doLayout();
+                }
+            } catch (e) { /* ignore */ }
+            this._toolbarButton = null;
+        }
+        // Tear down the singleton window so we don't leave a stale ref.
+        if (this._window) {
+            try { this._window.destroy(); } catch (e) { /* ignore */ }
+            this._window = null;
+        }
     },
 
     onEnable: function() {
+        var self = this;
+
+        // Keep the legacy Preferences-pane entry for backwards compatibility.
         this.prefsPage = deluge.preferences.addPage(
             new Deluge.ux.preferences.YaRSS2Page()
         );
+
+        // Add a button to Deluge's main toolbar so the plugin is reachable
+        // without diving into Preferences. Deluge's toolbar API is
+        // undocumented but accepts an Ext.Toolbar.Button via .add().
+        try {
+            this._toolbarButton = new Ext.Toolbar.Button({
+                text: _('YaRSS2'),
+                tooltip: _('Open YaRSS2 in a floating window'),
+                iconCls: 'icon-rss',
+                handler: function() { self.openWindow(); }
+            });
+            if (deluge.toolbar && deluge.toolbar.add) {
+                // Insert a separator before our button if one isn't already
+                // there, so it doesn't crowd the existing buttons.
+                deluge.toolbar.add('-');
+                deluge.toolbar.add(this._toolbarButton);
+                if (deluge.toolbar.doLayout) deluge.toolbar.doLayout();
+            }
+        } catch (e) {
+            // Toolbar API not available — silently skip; Preferences entry
+            // still works.
+            if (window.console) console.warn('YaRSS2 toolbar button skipped:', e);
+            this._toolbarButton = null;
+        }
+    },
+
+    // Lazily create the singleton window. Subsequent clicks bring it to
+    // the front instead of opening duplicates.
+    openWindow: function() {
+        if (!this._window || this._window.isDestroyed) {
+            this._window = new Deluge.ux.yarss2.YaRSS2Window();
+        }
+        if (this._window.isVisible && this._window.isVisible()) {
+            this._window.toFront();
+        } else {
+            this._window.show();
+        }
     }
 });
 

@@ -18,7 +18,7 @@ from setuptools import find_packages, setup
 __plugin_name__ = "YaRSS2"
 __author__ = "Bro (original), Sam Mahdi (v2.2.x maintainer)"
 __author_email__ = ""
-__version__ = "2.2.3"
+__version__ = "2.2.4"
 __url__ = "https://github.com/TSA3000/deluge-yarss2-webui"
 __license__ = "GPLv3"
 __description__ = "Yet another RSS 2"

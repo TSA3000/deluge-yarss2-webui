@@ -10,9 +10,6 @@
 # Copyright (C) 2007-2009 Andrew Resch <andrewresch@gmail.com>
 # Copyright (C) 2009 Damien Churchill <damoxc@gmail.com>
 #
-# v2.2.x maintenance release and WebUI port:
-# Copyright (C) 2026 Sam Mahdi
-#
 # This file is part of YaRSS2 and is licensed under GNU General Public License 3.0, or later, with
 # the additional special exception to link portions of this program with the OpenSSL library.
 # See LICENSE for more details.
@@ -36,7 +33,7 @@ def load_libs():
         location = "%s/%s" % (egg.location, ep.module_name.replace(".", "/"))
         if location not in sys.path:
             sys.path.append(location)
-        log.info("Appending to sys.path: '%s'" % location)
+        log.debug("Appending to sys.path: '%s'" % location)
 
 
 class CorePlugin(PluginInitBase):

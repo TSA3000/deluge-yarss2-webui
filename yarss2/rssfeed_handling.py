@@ -225,7 +225,7 @@ class RSSFeedHandler(object):
             cookie_header = http.get_cookie_header(site_cookies_dict)
             return_dict["cookie_header"] = cookie_header
 
-        self.log.info("Fetching RSS Feed: '%s' with Cookie: '%s' and User-agent: '%s'." %
+        self.log.debug("Fetching RSS Feed: '%s' with Cookie: '%s' and User-agent: '%s'." %
                       (rssfeed_data["name"], http.get_cookie_header(cookie_header), user_agent))
 
         # Will abort after 10 seconds if server doesn't answer
@@ -259,7 +259,7 @@ class RSSFeedHandler(object):
 
         # 304 Not Modified: nothing changed on the server; we're done.
         if parsed_feed.get("not_modified"):
-            self.log.info("RSS Feed '%s' not modified since last fetch (HTTP 304)" %
+            self.log.debug("RSS Feed '%s' not modified since last fetch (HTTP 304)" %
                           rssfeed_data["name"])
             return_dict["not_modified"] = True
             return return_dict
@@ -432,7 +432,7 @@ class RSSFeedHandler(object):
         fetch_data["site_cookies_dict"] = http.get_matching_cookies_dict(config["cookies"], rssfeed_data["site"])
         fetch_data["user_agent"] = get_user_agent(rssfeed_data=rssfeed_data)
 
-        self.log.info("Update handler executed on RSS Feed '%s (%s)' (Update interval %d min)" %
+        self.log.debug("Update handler executed on RSS Feed '%s (%s)' (Update interval %d min)" %
                       (rssfeed_data["name"], rssfeed_data["site"], rssfeed_data["update_interval"]))
 
         for key in config["subscriptions"].keys():
@@ -471,12 +471,12 @@ class RSSFeedHandler(object):
         else:
             self.log.warning("RSS Feed '%s' should obey TTL, but feed has no TTL value." %
                              rssfeed_data["name"])
-            self.log.info("Obey TTL option set to False")
+            self.log.debug("Obey TTL option set to False")
             rssfeed_data["obey_ttl"] = False
 
     def fetch_feed(self, subscription_data, rssfeed_data, fetch_data):
         """Search a feed with config 'subscription_data'"""
-        self.log.info("Fetching subscription '%s'." % subscription_data["name"])
+        self.log.debug("Fetching subscription '%s'." % subscription_data["name"])
 
         # Feed has not yet been fetched.
         if fetch_data["rssfeed_items"] is None:
@@ -501,8 +501,14 @@ class RSSFeedHandler(object):
         options = subscription_data.copy()
         del options["custom_text_lines"]
         matches, message = self.update_rssfeeds_dict_matching(fetch_data["rssfeed_items"], options=options)
-        self.log.info("%d items in feed, %d matches the filter." %
-                      (len(fetch_data["rssfeed_items"]), len(matches.keys())))
+        total_items = len(fetch_data["rssfeed_items"])
+        match_count = len(matches.keys())
+        if match_count > 0:
+            self.log.info("Subscription '%s': %d items in feed, %d matches the filter." %
+                          (subscription_data["name"], total_items, match_count))
+        else:
+            self.log.debug("Subscription '%s': %d items in feed, 0 matches." %
+                          (subscription_data["name"], total_items))
         last_match_dt = common.isodate_to_datetime(subscription_data["last_match"])
 
         for key in list(matches.keys()):
