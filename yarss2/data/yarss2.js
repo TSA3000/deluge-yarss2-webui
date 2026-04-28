@@ -24,6 +24,58 @@ Ext.ns('Deluge.ux.preferences');
 Ext.ns('Deluge.plugins');
 
 /* ------------------------------------------------------------------ *
+ * Inject CSS for our custom icons. Embedded as a data: URI so we don't
+ * need to ship icon files inside the egg or wire up url resolution.
+ *   .icon-yarss2          — used for toolbar button + page button
+ *   .icon-yarss2-window   — used for the floating window's title bar
+ * Both resolve to the same SVG, sized appropriately by the icon class.
+ *
+ * The SVG draws a stylized "RSS + Y" — an RSS broadcast arc next to the
+ * letter Y, in the orange that's near-universal for RSS branding.
+ * ------------------------------------------------------------------ */
+
+(function injectYarss2Css() {
+    if (document.getElementById('yarss2-injected-css')) return;
+    // YaRSS2 icon: orange RSS-brand rounded square with white Deluge water-drop
+    // silhouette and orange RSS arcs+dot inside the drop.
+    // Colors: #ee802f (RSS orange) + white. Drop shape sized to fill ~85% of
+    // the square, RSS triad in lower-left of the drop with shared origin.
+    var svg =
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">' +
+            // Orange RSS-brand rounded square
+            '<rect width="128" height="128" rx="18" fill="#ee802f"/>' +
+            // White Deluge water-drop silhouette
+            '<path d="M 64 10 Q 87.56 69.2 102 80 A 38 38 0 0 1 26 80 Q 40.44 69.2 64 10 Z" ' +
+                  'fill="#ffffff"/>' +
+            // RSS triad (orange-on-white inside the drop):
+            // dot at origin (48,96), inner arc r=17, outer arc r=30
+            '<circle cx="48" cy="96" r="5.5" fill="#ee802f"/>' +
+            '<path d="M 65 96 A 17 17 0 0 0 48 79" ' +
+                  'stroke="#ee802f" stroke-width="9" fill="none" stroke-linecap="round"/>' +
+            '<path d="M 78 96 A 30 30 0 0 0 48 66" ' +
+                  'stroke="#ee802f" stroke-width="9" fill="none" stroke-linecap="round"/>' +
+        '</svg>';
+    var dataUri = 'data:image/svg+xml;base64,' + btoa(svg);
+    var css =
+        '.icon-yarss2 {' +
+            'background-image: url("' + dataUri + '") !important;' +
+            'background-repeat: no-repeat;' +
+            'background-position: 0 50%;' +
+            'background-size: 16px 16px;' +
+            'padding-left: 20px !important;' +
+        '}' +
+        '.x-btn .icon-yarss2, .x-toolbar .icon-yarss2 {' +
+            'background-image: url("' + dataUri + '") !important;' +
+            'background-position: 4px 50%;' +
+        '}';
+    var style = document.createElement('style');
+    style.id = 'yarss2-injected-css';
+    style.type = 'text/css';
+    style.appendChild(document.createTextNode(css));
+    document.head.appendChild(style);
+})();
+
+/* ------------------------------------------------------------------ *
  * Shared helpers
  * ------------------------------------------------------------------ */
 
@@ -1318,9 +1370,11 @@ Deluge.ux.yarss2.reloadAllTabs = function(owner) {
 };
 
 /* ------------------------------------------------------------------ *
- * Preferences page — the legacy in-Preferences view. Still works for
- * users with that muscle memory; new toolbar button opens the floating
- * window instead.
+ * Preferences page placeholder — a slim panel with a single message and
+ * an "Open YaRSS2" button. Clicking the YaRSS2 entry in the Preferences
+ * sidebar pops out the actual UI in a floating window instead of trying
+ * to fit it in the narrow right pane (where columns get clipped and the
+ * regex preview / Log tab don't have room to breathe).
  * ------------------------------------------------------------------ */
 
 Deluge.ux.preferences.YaRSS2Page = Ext.extend(Ext.Panel, {
@@ -1331,12 +1385,62 @@ Deluge.ux.preferences.YaRSS2Page = Ext.extend(Ext.Panel, {
 
     initComponent: function() {
         Deluge.ux.preferences.YaRSS2Page.superclass.initComponent.call(this);
-        this.tabs = Deluge.ux.yarss2.buildTabPanel(this);
-        this.add(this.tabs);
-        this.on('show', this.reloadAll, this);
+
+        var self = this;
+
+        // Inner content: header text, paragraph, button. Uses a vbox so the
+        // button stays aligned to the left at a sane size regardless of
+        // viewport width. Avoids DOM querying / renderTo dance.
+        this.add({
+            xtype: 'container',
+            layout: { type: 'vbox', align: 'stretch' },
+            border: false,
+            bodyStyle: 'padding: 24px; background: transparent;',
+            items: [
+                {
+                    xtype: 'panel', border: false, bodyStyle: 'background: transparent; padding: 0;',
+                    html: '<h2 style="margin:0 0 14px 0;color:#eee;">' +
+                          Ext.util.Format.htmlEncode(_('YaRSS2')) +
+                          '</h2>' +
+                          '<p style="font-size:13px;color:#ccc;line-height:1.55;margin:0 0 14px 0;">' +
+                          Ext.util.Format.htmlEncode(
+                              _('YaRSS2 opens in a separate, resizable window so feeds, subscriptions, the regex preview, and the log all have room.')) +
+                          '</p>' +
+                          '<p style="font-size:12px;color:#888;line-height:1.55;margin:0 0 22px 0;">' +
+                          Ext.util.Format.htmlEncode(
+                              _('The window opens automatically when you select YaRSS2 in the sidebar. Close it from its own × button when done.')) +
+                          '</p>'
+                },
+                {
+                    xtype: 'container',
+                    layout: 'hbox',
+                    items: [{
+                        xtype: 'button',
+                        text: _('Open YaRSS2'),
+                        iconCls: 'icon-yarss2',
+                        scale: 'medium',
+                        minWidth: 160,
+                        handler: function() { self.openWindow(); }
+                    }]
+                }
+            ]
+        });
+
+        // Auto-open the window when the user enters this page in the sidebar.
+        this.on('show', function() {
+            self.openWindow();
+        }, this);
     },
 
-    reloadAll: function() { Deluge.ux.yarss2.reloadAllTabs(this); }
+    openWindow: function() {
+        // Delegate to the plugin singleton so multiple Preferences opens
+        // and toolbar clicks (if added later) all use the same instance.
+        var plugin = (Deluge && Deluge.plugins && Deluge.plugins.YaRSS2)
+                     || (deluge && deluge.plugins && deluge.plugins.YaRSS2);
+        if (plugin && typeof plugin.openWindow === 'function') {
+            plugin.openWindow();
+        }
+    }
 });
 
 /* ------------------------------------------------------------------ *
@@ -1347,6 +1451,7 @@ Deluge.ux.preferences.YaRSS2Page = Ext.extend(Ext.Panel, {
 
 Deluge.ux.yarss2.YaRSS2Window = Ext.extend(Ext.Window, {
     title: _('YaRSS2'),
+    iconCls: 'icon-yarss2',
     width: 1000,
     height: 700,
     minWidth: 700,
@@ -1380,21 +1485,22 @@ Deluge.plugins.YaRSS2Plugin = Ext.extend(Deluge.Plugin, {
 
     onDisable: function() {
         deluge.preferences.removePage(this.prefsPage);
-        // Remove our toolbar button if we added one.
-        if (this._toolbarButton) {
+        // Remove our toolbar button + separator if we added them.
+        var tb = deluge.toolbar;
+        if (tb) {
             try {
-                var tb = deluge.toolbar;
-                if (tb) {
-                    if (typeof tb.remove === 'function') {
-                        tb.remove(this._toolbarButton);
-                    } else if (tb.items && tb.items.remove) {
-                        tb.items.remove(this._toolbarButton);
-                    }
-                    if (tb.doLayout) tb.doLayout();
+                if (this._toolbarButton && typeof tb.remove === 'function') {
+                    tb.remove(this._toolbarButton);
                 }
+                if (this._toolbarSeparator && this._toolbarSeparator.id &&
+                    typeof tb.remove === 'function') {
+                    tb.remove(this._toolbarSeparator);
+                }
+                if (tb.doLayout) tb.doLayout();
             } catch (e) { /* ignore */ }
-            this._toolbarButton = null;
         }
+        this._toolbarButton = null;
+        this._toolbarSeparator = null;
         // Tear down the singleton window so we don't leave a stale ref.
         if (this._window) {
             try { this._window.destroy(); } catch (e) { /* ignore */ }
@@ -1411,20 +1517,38 @@ Deluge.plugins.YaRSS2Plugin = Ext.extend(Deluge.Plugin, {
         );
 
         // Add a button to Deluge's main toolbar so the plugin is reachable
-        // without diving into Preferences. Deluge's toolbar API is
-        // undocumented but accepts an Ext.Toolbar.Button via .add().
+        // without diving into Preferences. Insert before "Preferences" so the
+        // button is in the visible region of the toolbar instead of being
+        // pushed past the right edge on narrow viewports.
         try {
             this._toolbarButton = new Ext.Toolbar.Button({
                 text: _('YaRSS2'),
                 tooltip: _('Open YaRSS2 in a floating window'),
-                iconCls: 'icon-rss',
+                iconCls: 'icon-yarss2',
                 handler: function() { self.openWindow(); }
             });
-            if (deluge.toolbar && deluge.toolbar.add) {
-                // Insert a separator before our button if one isn't already
-                // there, so it doesn't crowd the existing buttons.
-                deluge.toolbar.add('-');
-                deluge.toolbar.add(this._toolbarButton);
+            this._toolbarSeparator = null;
+            if (deluge.toolbar && deluge.toolbar.insert) {
+                // Find the Preferences button index so we slot in just before it.
+                var prefsIdx = -1;
+                if (deluge.toolbar.items && deluge.toolbar.items.items) {
+                    deluge.toolbar.items.items.forEach(function(it, idx) {
+                        if (it && it.text === 'Preferences') prefsIdx = idx;
+                    });
+                }
+                if (prefsIdx >= 0) {
+                    // Insert button first, then separator before it (insert
+                    // shifts subsequent indices, so do button then sep at same
+                    // index to end up with: ... [sep] [YaRSS2] [Preferences] ...
+                    deluge.toolbar.insert(prefsIdx, this._toolbarButton);
+                    this._toolbarSeparator = new Ext.Toolbar.Separator();
+                    deluge.toolbar.insert(prefsIdx, this._toolbarSeparator);
+                } else if (deluge.toolbar.add) {
+                    // Fallback: append at end (older Deluge layouts).
+                    this._toolbarSeparator = '-';
+                    deluge.toolbar.add(this._toolbarSeparator);
+                    deluge.toolbar.add(this._toolbarButton);
+                }
                 if (deluge.toolbar.doLayout) deluge.toolbar.doLayout();
             }
         } catch (e) {

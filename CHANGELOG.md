@@ -1,5 +1,28 @@
 ## Changelog ##
 
+v2.2.5 — 2026-04-28 (maintainer: Sam Mahdi; floating window + custom icon)
+
+WebUI improvements
+
+* New **YaRSS2** button on Deluge's main toolbar opens YaRSS2 in a
+  floating, resizable, draggable window. Non-modal — torrent list
+  stays interactive while it's open.
+* Clicking **Preferences -> YaRSS2** in the sidebar auto-opens the same
+  floating window (placeholder text in the right pane explains).
+* New custom icon: Deluge water-drop silhouette with RSS arcs and dot
+  inside, in matching navy/pale-blue palette. Embedded as inline SVG
+  data URI in yarss2.js so no extra files ship in the egg.
+* Icon appears on the toolbar button, the "Open YaRSS2" page button,
+  and the floating window's title bar.
+* Floating window: 1000x700 default, min 700x500, maximizable,
+  draggable, constrained-to-viewport, singleton (clicking again brings
+  to front).
+* Tab panel construction refactored into a shared factory
+  (buildTabPanel) so the Preferences page and the Window stay in sync
+  for future feature additions.
+* Standalone icon files (SVG / PNG / ICO at multiple sizes) added to
+  docs/images/ for GitHub display, social preview, etc.
+
 v2.2.4 — 2026-04-19 (maintainer: Sam Mahdi; floating window UI)
 
 WebUI window mode

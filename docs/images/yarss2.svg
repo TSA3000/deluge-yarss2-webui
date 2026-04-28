@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!--
+    YaRSS2 icon — orange RSS-brand square with white Deluge water-drop
+    silhouette and orange RSS arcs+dot inside the drop.
+  -->
+
+  <!-- Orange rounded square (RSS brand color) -->
+  <rect width="128" height="128" rx="18" fill="#ee802f"/>
+
+  <!-- White Deluge water-drop silhouette -->
+  <path d="M 64 10 Q 87.56 61.8 102 80 A 38 38 0 0 1 26 80 Q 40.44 61.8 64 10 Z" fill="#ffffff"/>
+
+  <!-- RSS triad in orange. Origin at (48, 96). -->
+  <!-- Dot -->
+  <circle cx="48" cy="96" r="5.5" fill="#ee802f"/>
+  <!-- Inner arc: from (65, 96) clockwise up to (48, 79), radius 17 -->
+  <path d="M 65 96 A 17 17 0 0 0 48 79"
+        stroke="#ee802f" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <!-- Outer arc: from (78, 96) clockwise up to (48, 66), radius 30 -->
+  <path d="M 78 96 A 30 30 0 0 0 48 66"
+        stroke="#ee802f" stroke-width="9" fill="none" stroke-linecap="round"/>
+</svg>

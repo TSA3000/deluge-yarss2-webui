@@ -1,4 +1,8 @@
-# YaRSS2 v2.2.4 — Deluge RSS plugin with WebUI
+<p align="center">
+  <img src="docs/images/yarss2-128.png" alt="YaRSS2 logo" width="96">
+</p>
+
+# YaRSS2 v2.2.5 — Deluge RSS plugin with WebUI
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](./LICENSE)
 [![Deluge: 2.x](https://img.shields.io/badge/Deluge-2.x-purple.svg)](https://deluge-torrent.org/)
@@ -72,9 +76,9 @@ Download the egg matching your Deluge's Python version from the
 
 ```bash
 # Adjust path for your Deluge user
-sudo cp YaRSS2-2.2.4-py3.12.egg /var/lib/deluge/.config/deluge/plugins/
-sudo chown deluge:deluge /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.4-py3.12.egg
-sudo chmod 644 /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.4-py3.12.egg
+sudo cp YaRSS2-2.2.5-py3.12.egg /var/lib/deluge/.config/deluge/plugins/
+sudo chown deluge:deluge /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.5-py3.12.egg
+sudo chmod 644 /var/lib/deluge/.config/deluge/plugins/YaRSS2-2.2.5-py3.12.egg
 sudo systemctl restart deluged deluge-web
 ```
 
