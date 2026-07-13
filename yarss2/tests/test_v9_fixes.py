@@ -254,6 +254,130 @@ class EtagCachePersistenceTestCase(unittest.TestCase):
         self.assertEqual(rssfeed_data["etag"], 'W/"old"')
 
 
+class VendoredSixImportCompatTestCase(unittest.TestCase):
+    """Regression coverage for two distinct Python 3.12+ breakages that both
+    stem from the vendored `six.py` (1.12.0) bundled inside
+    `yarss2/include/urllib3/src/urllib3/packages/six.py`.
+
+    1. The `_SixMetaPathImporter` registered by six only implemented the
+       legacy `find_module`/`load_module` finder APIs, which Python 3.12
+       removed. As a result the import system never invoked it and
+       `urllib3.packages.six.moves.<x>` raised
+       `ModuleNotFoundError: No module named 'urllib3.packages.six.moves'`
+       — the egg refused to instantiate at all. Fixed by teaching
+       `_SixMetaPathImporter` the PEP 451 spec API:
+       `find_spec`, `create_module`, `exec_module`.
+
+    2. `six` is bundled only as `urllib3.packages.six`, never as a
+       top-level package. Yet other vendored libraries (`dateutil`,
+       `html5lib`, ...) do `import six` / `from six.moves import ...` at
+       module scope. On a Deluge host with no system `six` installed
+       (typical of the official LinuxServer Deluge container on 3.12+)
+       this raised `ModuleNotFoundError: No module named 'six'` as soon
+       as feed parsing touched `dateutil.tz`. Fixed by `load_libs()` in
+       `yarss2/__init__.py`, which exec's the bundled six.py once under
+       `__name__ == "six"` so the standard top-level import paths work.
+    """
+
+    @staticmethod
+    def _is_six_path_name(name):
+        return (name == "six" or name.startswith("six.")
+                or name == "urllib3" or name.startswith("urllib3.")
+                or name == "requests" or name.startswith("requests.")
+                or name == "dateutil" or name.startswith("dateutil.")
+                or name == "atoma" or name.startswith("atoma.")
+                or name == "html5lib" or name.startswith("html5lib.")
+                or name == "chardet" or name.startswith("chardet.")
+                or name == "certifi" or name.startswith("certifi."))
+
+    def setUp(self):
+        import os
+        import sys
+        repo_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        self._saved_path = sys.path[:]
+        # Mirror the libpaths entries declared in setup.py so we import the
+        # vendored copies, not whatever is installed on the host running pytest.
+        for sub in (("urllib3", "src"), ("requests",), ("dateutil",),
+                    ("atoma",), ("html5lib",), ("chardet",), ("certifi",)):
+            p = os.path.join(repo_root, "yarss2", "include", *sub)
+            if p not in sys.path:
+                sys.path.insert(0, p)
+        self._saved_modules = {n: m for n, m in list(sys.modules.items())
+                               if self._is_six_path_name(n)}
+        for n in list(self._saved_modules):
+            del sys.modules[n]
+
+    def tearDown(self):
+        import sys
+        sys.path[:] = self._saved_path
+        for n in [n for n in list(sys.modules) if self._is_six_path_name(n)]:
+            if n not in self._saved_modules:
+                del sys.modules[n]
+        sys.modules.update(self._saved_modules)
+
+    def test_top_level_six_imports(self):
+        """`import six` / `from six import ...` work on 3.12+.
+
+        Reproduces the dateutil.tz failure seen in the field: dateutil does
+        `import six` then `from six import string_types` at module scope,
+        and without load_libs()'s six-bootstrap this raised
+        `ModuleNotFoundError: No module named 'six'`.
+        """
+        from yarss2 import load_libs
+        load_libs()  # ensures top-level `six` is registered in sys.modules
+        import six
+        from six import PY2, PY3, integer_types, string_types, text_type
+        from six.moves import _thread, range
+        from six.moves.urllib.parse import urlencode, urlparse
+        import urllib.parse
+        self.assertIs(urlencode, urllib.parse.urlencode)
+        self.assertIs(urlparse, urllib.parse.urlparse)
+        self.assertFalse(PY2)
+        self.assertTrue(PY3)
+        self.assertEqual(string_types, (str,))
+        self.assertEqual(integer_types, (int,))
+        self.assertIs(text_type, str)
+
+    def test_vendored_dateutil_imports(self):
+        """dateutil.tz used to die with `No module named 'six'` on 3.12+ in
+        a stripped Deluge container without a system six."""
+        from yarss2 import load_libs
+        load_libs()
+        import dateutil.tz
+        import dateutil.parser
+        # dateutil.tz parses "America/New_York" via dateutil.parser which
+        # uses `from six import integer_types` at module scope.
+        self.assertTrue(hasattr(dateutil.tz, "gettz"))
+        self.assertTrue(callable(dateutil.tz.gettz))
+
+    def test_six_moves_submodules_resolve(self):
+        """`urllib3.packages.six.moves.<x>` resolves to the real stdlib
+        objects via the patched PEP 451 finder on 3.12+."""
+        from urllib3.packages.six.moves.http_client import IncompleteRead
+        from urllib3.packages.six.moves.urllib_parse import urlparse, urlencode
+        from urllib3.packages.six.moves.urllib.parse import urlencode as ue2, urlparse as up2
+        from urllib3.packages.six.moves.urllib.request import urlopen, Request
+
+        import http.client
+        import urllib.parse
+        import urllib.request
+
+        self.assertIs(IncompleteRead, http.client.IncompleteRead)
+        self.assertIs(urlparse, urllib.parse.urlparse)
+        self.assertIs(urlencode, urllib.parse.urlencode)
+        self.assertIs(ue2, urllib.parse.urlencode)
+        self.assertIs(up2, urllib.parse.urlparse)
+        self.assertIs(urlopen, urllib.request.urlopen)
+        self.assertIs(Request, urllib.request.Request)
+
+    def test_vendored_requests_imports(self):
+        from yarss2 import load_libs
+        load_libs()
+        import requests
+        self.assertTrue(hasattr(requests, "Session"))
+        self.assertTrue(hasattr(requests, "adapters"))
+
+
 # --- Test helpers ----------------------------------------------------------
 
 class _NullLog(object):

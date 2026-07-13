@@ -182,6 +182,15 @@ class _SixMetaPathImporter(object):
             return self
         return None
 
+    def find_spec(self, fullname, path=None, target=None):
+        # PEP 451 finder API. find_module()/load_module() were removed in
+        # Python 3.12, so without this the importer is invisible on 3.12+
+        # and `urllib3.packages.six.moves.<x>` can't be imported.
+        if fullname in self.known_modules:
+            from importlib.util import spec_from_loader
+            return spec_from_loader(fullname, self)
+        return None
+
     def __get_module(self, fullname):
         try:
             return self.known_modules[fullname]
@@ -201,6 +210,30 @@ class _SixMetaPathImporter(object):
             mod.__loader__ = self
         sys.modules[fullname] = mod
         return mod
+
+    def create_module(self, spec):
+        # PEP 451: returning None tells the import system to use the default
+        # module object creation.
+        return None
+
+    def exec_module(self, module):
+        # PEP 451 loader API. Reproduce the legacy load_module() effect
+        # exactly: replace the placeholder in sys.modules with the real
+        # module object the entry maps to. The lazy namespace modules
+        # (six.moves.urllib, six.moves.urllib_parse, ...) are themselves
+        # real `types.ModuleType` instances whose class-level attributes
+        # publish MovedAttribute descriptors, so they must be the object
+        # that lives at sys.modules[fullname] -- not a fresh empty module.
+        # _load_unlocked() re-pops sys.modules[spec.name] after exec_module
+        # returns, so whatever we install here is what the caller actually
+        # sees for `from six.moves.<x> import ...`.
+        fullname = module.__spec__.name
+        mod = self.__get_module(fullname)
+        if isinstance(mod, MovedModule):
+            sys.modules[fullname] = mod._resolve()
+        else:
+            sys.modules[fullname] = mod
+            mod.__loader__ = self
 
     def is_package(self, fullname):
         """
